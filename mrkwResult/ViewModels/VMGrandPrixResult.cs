@@ -59,11 +59,11 @@ namespace ViewModels
             set { _SelectedGoalStageList = value; NotifyPropertyChanged(); }
         }
 
-        private M_STG? _SelectedM_STG;
-        public M_STG? SelectedM_STG
+        private M_STG? _ResultInfo;
+        public M_STG? ResultInfo
         {
-            get { return _SelectedM_STG; }
-            set { _SelectedM_STG = value; NotifyPropertyChanged(); }
+            get { return _ResultInfo; }
+            set { _ResultInfo = value; NotifyPropertyChanged(); }
         }
 
         #endregion
@@ -121,8 +121,8 @@ namespace ViewModels
                 }
                 else
                 {
-                    _SelectedM_STG = await req.GetStageInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetStageInfo, _SelectedStartStageList.STAGE_CD, _SelectedGoalStageList.STAGE_CD);
-                    if (_SelectedM_STG == null) 
+                    ResultInfo = await req.GetStageInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetStageInfo, _SelectedStartStageList.STAGE_CD, _SelectedGoalStageList.STAGE_CD);
+                    if (ResultInfo == null) 
                     {
                         msg = "検索結果が0件でした。";
                     }

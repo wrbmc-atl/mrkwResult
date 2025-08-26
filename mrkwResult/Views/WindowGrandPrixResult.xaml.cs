@@ -2,6 +2,7 @@
 using ViewModels;
 using Models;
 using System.Windows;
+using System.Windows.Input;
 using mrkwResult.Models.DBInfo;
 
 namespace Views
@@ -34,6 +35,22 @@ namespace Views
             }
             catch (Exception ex)
             {
+                throw ex;
+            }
+        }
+
+        private void Window_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Escape)
+                {
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
                 throw ex;
             }
         }
@@ -86,5 +103,6 @@ namespace Views
                 throw ex;
             }
         }
+
     }
 }
