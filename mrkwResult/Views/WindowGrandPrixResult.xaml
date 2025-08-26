@@ -92,9 +92,7 @@
                         SelectedValuePath="STAGE_CD" DisplayMemberPath="STAGE_NM">
                     </ComboBox>
                     <TextBlock Text="" Width="40"/>
-                    <Button Content="検索" Click="Click_Search"
-                        >
-                    </Button>
+                    <Button Content="検索" Click="Click_Search"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
@@ -122,23 +120,20 @@
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
                     <TextBlock Text="ショトカ1:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC1}" Width="300" IsEnabled="False" Focusable="False"/>
-                    <Canvas Width="100" Height="50" Margin="10,0,0,0" Background="LightGray">
-                    </Canvas>
+                    <TextBox Text="{Binding ResultInfo.SHTC1}" Width="800" IsEnabled="False" Focusable="False"/>
+                    <Button Content="画像1の表示" Click="Click_pic1" Margin="10,0,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
                     <TextBlock Text="ショトカ2:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC2}" Width="300" IsEnabled="False" Focusable="False"/>
-                    <Canvas Width="100" Height="50" Margin="10,0,0,0" Background="LightGray">
-                    </Canvas>
+                    <TextBox Text="{Binding ResultInfo.SHTC2}" Width="800" IsEnabled="False" Focusable="False"/>
+                    <Button Content="画像2の表示" Click="Click_pic2" Margin="10,0,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
                     <TextBlock Text="ショトカ3:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC3}" Width="300" IsEnabled="False" Focusable="False"/>
-                    <Canvas Width="100" Height="50" Margin="10,0,0,0" Background="LightGray">
-                    </Canvas>
+                    <TextBox Text="{Binding ResultInfo.SHTC3}" Width="800" IsEnabled="False" Focusable="False"/>
+                    <Button Content="画像3の表示" Click="Click_pic3" Margin="10,0,0,0"/>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,5">

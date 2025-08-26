@@ -84,7 +84,7 @@ namespace ViewModels
                 throw ex;
             }
         }
-        
+
         internal async Task<bool> SetInitialize()
         {
             try
@@ -102,7 +102,7 @@ namespace ViewModels
                 throw ex;
             }
         }
-        
+
         internal async Task<Dictionary<bool, string>> Search()
         {
             try
@@ -111,18 +111,18 @@ namespace ViewModels
                 string msg = string.Empty;
                 Dictionary<bool, string> dic = new Dictionary<bool, string>();
 
-                if(_SelectedStartStageList == null)
+                if (_SelectedStartStageList == null)
                 {
                     msg = "出発地が選択されていません。";
                 }
-                else if(_SelectedGoalStageList == null)
+                else if (_SelectedGoalStageList == null)
                 {
                     msg = "目的地が選択されていません。";
                 }
                 else
                 {
                     ResultInfo = await req.GetStageInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetStageInfo, _SelectedStartStageList.STAGE_CD, _SelectedGoalStageList.STAGE_CD);
-                    if (ResultInfo == null) 
+                    if (ResultInfo == null)
                     {
                         msg = "検索結果が0件でした。";
                     }
@@ -138,6 +138,68 @@ namespace ViewModels
             {
                 throw ex;
             }
+        }
+
+        internal async Task<Dictionary<bool, string>> ShowPicture(string picNumber)
+        {
+            var dic = new Dictionary<bool, string>();
+            string msg = string.Empty;
+
+            if (ResultInfo == null)
+            {
+                msg = "表示する画像情報がありません。";
+                dic.Add(false, msg);
+                return dic;
+            }
+
+            string imageFileName = string.Empty;
+            switch (picNumber)
+            {
+                case "1":
+                    imageFileName = ResultInfo.SHTC_PIC1;
+                    break;
+                case "2":
+                    imageFileName = ResultInfo.SHTC_PIC2;
+                    break;
+                case "3":
+                    imageFileName = ResultInfo.SHTC_PIC3;
+                    break;
+                default:
+                    msg = "無効な画像番号です。";
+                    dic.Add(false, msg);
+                    return dic;
+            }
+
+            if (string.IsNullOrEmpty(imageFileName))
+            {
+                dic.Add(true, string.Empty);
+                return dic;
+            }
+
+            string projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
+            string fullPath = Path.Combine(projectDirectory, "Images", imageFileName);
+
+            if (File.Exists(fullPath))
+            {
+                try
+                {
+                    var imageViewer = new WindowImageViewer(fullPath);
+                    imageViewer.Show();
+                    dic.Add(true, string.Empty);
+                }
+                catch (Exception ex)
+                {
+                    msg = $"画像の表示中にエラーが発生しました。\n詳細: {ex.Message}";
+                    dic.Add(false, msg);
+                }
+            }
+            else
+            {
+                msg = $"指定されたファイルが見つかりません: {imageFileName}";
+                dic.Add(false, msg);
+            }
+
+            return dic;
         }
 
     }

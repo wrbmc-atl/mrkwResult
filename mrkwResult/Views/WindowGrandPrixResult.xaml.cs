@@ -104,5 +104,55 @@ namespace Views
             }
         }
 
+        private async void Click_pic1(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Dictionary<bool, string> res = await vm.ShowPicture("1");
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.SearchError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private async void Click_pic2(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Dictionary<bool, string> res = await vm.ShowPicture("2");
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.SearchError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private async void Click_pic3(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Dictionary<bool, string> res = await vm.ShowPicture("3");
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.SearchError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
     }
 }
