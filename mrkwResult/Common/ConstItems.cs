@@ -8,13 +8,11 @@ namespace Models
 {
     public static class ConstItems
     {
-        public const string ConnStr = "Server=localhost;Port=5432;Database=postgres;User ID=postgres;Password=brkshcir;";
+        public const string ConnStrDev = "User ID=mrkw_dev;Password=mrkw_dev;Data Source=localhost:1521/XEPDB1;";
+        public const string ConnStrProd = "User ID=mrkw_prod;Password=mrkw_prod;Data Source=localhost:1521/XEPDB1;";
+        public const string PKG_GetStageList = "PKG_GRN_001.OPEN_CURSOR";
+        public const string PKG_GetStageInfo = "PKG_GRN_002.OPEN_CURSOR";
 
-        // 譜面確認URLヘッダー
-        public const string CheetUrlHead = "";
-        // 楽曲WikiURL
-        public const string MstMscUrl = "https://pjsekai.com/?aad6ee23b0";
-        public const string MstMscScr_Header = "https://sdvx.in/prsk/";
 
         // メッセージ
         public const string InitError = "初期化に失敗しました。";
@@ -22,18 +20,6 @@ namespace Models
         public const string InsertError = "登録に失敗しました。";
         public const string CheckError = "入力内容を確認してください。";
 
-        // 数値
-        public const long MIN_EXP_LV = 21;
-        public const long MAX_EXP_LV = 31;
-        public const long MIN_MAS_LV = 25;
-        public const long MAX_MAS_LV = 37;
-        public const long MIN_APD_LV = 24;
-        public const long MAX_APD_LV = 38;
-        public const long MAXROW = 1000;
-        public const int DIFF_MONTH = 3;
-
         // ============その他============
-        // プロセカサービス開始日
-        public const string START_DATE = "2020/09/30";
     }
 }

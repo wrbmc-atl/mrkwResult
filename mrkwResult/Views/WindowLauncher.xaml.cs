@@ -35,25 +35,16 @@ namespace Views
             }
         }
 
-        private async void btnGrandPrixResult_Click(object sender, RoutedEventArgs e)
+        private void btnGrandPrixResult_Click(object sender, RoutedEventArgs e)
         {
-        //    try
-        //    {
-        //        WindowScoreResult frm = new WindowScoreResult();
-        //        bool? result = frm.ShowDialog();
-        //        if (result == true || result == false)
-        //        {
-        //            bool res = await vm.Init();
-        //            if (!res)
-        //            {
-        //                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw ex;
-        //    }
+            try
+            {
+                vm.ShowNewDialog();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         private async void btnSurvivalResult_Click(object sender, RoutedEventArgs e)
