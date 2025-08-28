@@ -116,26 +116,30 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="表示順:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
+                <TextBlock Text="コース:" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.COURSE_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5" IsEnabled="False" Focusable="False"/>
 
-                <TextBlock Text="アイテム:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="表示順:" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
 
-                <TextBlock Text="ショートカット:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.SHTC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="アイテム:" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="画像パス:" Grid.Row="5" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.SHTC_PIC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="ショートカット:" Grid.Row="5" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.SHTC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="備考:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
+                <TextBlock Text="画像パス:" Grid.Row="6" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.SHTC_PIC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="備考:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
+                <TextBox Text="{Binding CourseInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
 
             </Grid>
         </GroupBox>

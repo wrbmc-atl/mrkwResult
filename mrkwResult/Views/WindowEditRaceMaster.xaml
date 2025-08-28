@@ -10,7 +10,7 @@
         FontSize="20"
         FontFamily="07やさしさゴシック"
         Title="レースマスタ編集"
-        Height="600" Width="960"
+        Height="680" Width="960"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown">
@@ -127,34 +127,42 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <TextBlock Text="表示順:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
-
-                <CheckBox Content="逆走" IsChecked="{Binding RaceInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}" Grid.Row="3" Grid.Column="1" Margin="5"/>
+                <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock Text="スタート:" Margin="5"/>
+                    <TextBox Text="{Binding RaceInfo.START_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" IsEnabled="False" Focusable="False"/>
+                    <TextBlock Text="ゴール:" Margin="5"/>
+                    <TextBox Text="{Binding RaceInfo.GOAL_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" IsEnabled="False" Focusable="False"/>
+                </StackPanel>
                 
-                <TextBlock Text="アイテム:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="表示順:" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
 
-                <TextBlock Text="ショートカット1:" Grid.Row="5" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.SHTC1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                <CheckBox Content="逆走" IsChecked="{Binding RaceInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                
+                <TextBlock Text="アイテム:" Grid.Row="5" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="画像パス1:" Grid.Row="6" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.SHTC_PIC1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="ショートカット1:" Grid.Row="6" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.SHTC1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="ショートカット2:" Grid.Row="7" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.SHTC2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="画像パス1:" Grid.Row="7" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.SHTC_PIC1, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="画像パス2:" Grid.Row="8" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.SHTC_PIC2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5"/>
+                <TextBlock Text="ショートカット2:" Grid.Row="8" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.SHTC2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="8" Grid.Column="1" Margin="5"/>
 
-                <TextBlock Text="備考:" Grid.Row="9" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
-                <TextBox Text="{Binding RaceInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
+                <TextBlock Text="画像パス2:" Grid.Row="9" Grid.Column="0" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.SHTC_PIC2, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="9" Grid.Column="1" Margin="5"/>
+
+                <TextBlock Text="備考:" Grid.Row="10" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
+                <TextBox Text="{Binding RaceInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="10" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
 
             </Grid>
         </GroupBox>
