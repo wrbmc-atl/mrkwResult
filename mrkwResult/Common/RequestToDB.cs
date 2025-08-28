@@ -17,7 +17,6 @@ namespace mrkwResult.Common
         /// <exception cref="Exception"></exception>
         public async Task<ObservableCollection<M_COURSE>> GetCourseListAsync(string connectionString, string packageName)
         {
-            // ObservableCollectionを初期化
             var stageList = new ObservableCollection<M_COURSE>();
 
             try
@@ -80,7 +79,6 @@ namespace mrkwResult.Common
         /// <exception cref="Exception">データベース操作失敗時にスローされます。</exception>
         public async Task<M_RACE> GetRaceInfoAsync(string connectionString, string packageName, string p_start_cd, string p_goal_cd)
         {
-            // M_RACE型のインスタンスを初期化。もしデータが見つからなければ、この初期値が返される。
             var stageInfo = new M_RACE();
 
             try
@@ -93,7 +91,6 @@ namespace mrkwResult.Common
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // 明示的にパラメータを追加
                         cmd.Parameters.Add(new OracleParameter("P_START_CD", OracleDbType.Varchar2, p_start_cd, ParameterDirection.Input));
                         cmd.Parameters.Add(new OracleParameter("P_GOAL_CD", OracleDbType.Varchar2, p_goal_cd, ParameterDirection.Input));
 
@@ -106,22 +103,20 @@ namespace mrkwResult.Common
                             // データが取得できた場合のみ、M_RACEオブジェクトにデータを設定
                             if (await reader.ReadAsync())
                             {
-                                stageInfo = new M_RACE
-                                {
-                                    START_CD = reader.IsDBNull(reader.GetOrdinal("START_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("START_CD")),
-                                    GOAL_CD = reader.IsDBNull(reader.GetOrdinal("GOAL_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("GOAL_CD")),
-                                    START_NM = reader.IsDBNull(reader.GetOrdinal("START_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("START_NM")),
-                                    GOAL_NM = reader.IsDBNull(reader.GetOrdinal("GOAL_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("GOAL_NM")),
-                                    REVERSE_FLG = reader.IsDBNull(reader.GetOrdinal("REVERSE_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("REVERSE_FLG")),
-                                    DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER")),
-                                    ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM")),
-                                    SHTC1 = reader.IsDBNull(reader.GetOrdinal("SHTC1")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC1")),
-                                    SHTC2 = reader.IsDBNull(reader.GetOrdinal("SHTC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC2")),
-                                    SHTC_PIC1 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC1")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC1")),
-                                    SHTC_PIC2 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC2")),
-                                    REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK")),
-                                    STAGE_TYP = reader.IsDBNull(reader.GetOrdinal("STAGE_TYP")) ? string.Empty : reader.GetString(reader.GetOrdinal("STAGE_TYP"))
-                                };
+                                stageInfo = new M_RACE();
+                                stageInfo.START_CD = reader.IsDBNull(reader.GetOrdinal("START_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("START_CD"));
+                                stageInfo.GOAL_CD = reader.IsDBNull(reader.GetOrdinal("GOAL_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("GOAL_CD"));
+                                stageInfo.START_NM = reader.IsDBNull(reader.GetOrdinal("START_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("START_NM"));
+                                stageInfo.GOAL_NM = reader.IsDBNull(reader.GetOrdinal("GOAL_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("GOAL_NM"));
+                                stageInfo.REVERSE_FLG = reader.IsDBNull(reader.GetOrdinal("REVERSE_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("REVERSE_FLG"));
+                                stageInfo.DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER"));
+                                stageInfo.ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM"));
+                                stageInfo.SHTC1 = reader.IsDBNull(reader.GetOrdinal("SHTC1")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC1"));
+                                stageInfo.SHTC2 = reader.IsDBNull(reader.GetOrdinal("SHTC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC2"));
+                                stageInfo.SHTC_PIC1 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC1")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC1"));
+                                stageInfo.SHTC_PIC2 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC2"));
+                                stageInfo.REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK"));
+                                stageInfo.STAGE_TYP = reader.IsDBNull(reader.GetOrdinal("STAGE_TYP")) ? string.Empty : reader.GetString(reader.GetOrdinal("STAGE_TYP"));
                             }
                             else
                             {
@@ -133,7 +128,6 @@ namespace mrkwResult.Common
             }
             catch (Exception ex)
             {
-                // データベース操作に失敗した場合、より詳細なメッセージを含む例外を再スロー
                 throw new Exception("レースマスタの取得に失敗しました。", ex);
             }
 

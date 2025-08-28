@@ -127,14 +127,12 @@ namespace Services
                 string msg = string.Empty;
                 Dictionary<bool, string> dic = new Dictionary<bool, string>();
 
-                // 入力値のバリデーション
                 if (_SelectedStartCourse == null || _SelectedGoalCourse == null)
                 {
                     msg = "コースを選択してください。";
                 }
                 else
                 {
-                    // 登録処理の実行
                     ret = await req.UpdateRaceMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateRaceMaster, _RaceInfo);
 
                     if (ret)

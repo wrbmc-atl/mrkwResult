@@ -117,21 +117,12 @@ namespace Services
                 string msg = string.Empty;
                 Dictionary<bool, string> dic = new Dictionary<bool, string>();
 
-                // 入力値のバリデーション
                 if (_SelectedCourse == null)
                 {
                     msg = "コースを選択してください。";
                 }
                 else
                 {
-                    //_CourseInfo.COURSE_CD = _SelectedCourse.COURSE_CD;
-                    //_CourseInfo.DISPORDER = _SelectedCourse.DISPORDER;
-                    //_CourseInfo.ITEM = _SelectedCourse.ITEM;
-                    //_CourseInfo.SHTC = _SelectedCourse.SHTC;
-                    //_CourseInfo.SHTC_PIC = _SelectedCourse.SHTC_PIC;
-                    //_CourseInfo.REMARK = _SelectedCourse.REMARK;
-
-                    // 登録処理の実行
                     ret = await req.UpdateCourseMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateCourseMaster, _CourseInfo);
 
                     if (ret)
