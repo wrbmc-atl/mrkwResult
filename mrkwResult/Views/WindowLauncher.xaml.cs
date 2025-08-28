@@ -39,7 +39,7 @@ namespace Views
         {
             try
             {
-                vm.ShowNewDialog();
+                vm.ShowNewDialog(ConstItems.WindowType.GrandPrix);
             }
             catch (Exception ex)
             {
@@ -47,88 +47,28 @@ namespace Views
             }
         }
 
-        private async void btnSurvivalResult_Click(object sender, RoutedEventArgs e)
+        private void btnEditCourseMaster_Click(object sender, RoutedEventArgs e)
         {
-            //    try
-            //    {
-            //        WindowScoreResult frm = new WindowScoreResult();
-            //        bool? result = frm.ShowDialog();
-            //        if (result == true || result == false)
-            //        {
-            //            bool res = await vm.Init();
-            //            if (!res)
-            //            {
-            //                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
+            try
+            {
+                vm.ShowNewDialog(ConstItems.WindowType.EditCourse);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        private async void btnVersusResult_Click(object sender, RoutedEventArgs e)
+        private void btnEditRaceMaster_Click(object sender, RoutedEventArgs e)
         {
-            //    try
-            //    {
-            //        WindowScoreResult frm = new WindowScoreResult();
-            //        bool? result = frm.ShowDialog();
-            //        if (result == true || result == false)
-            //        {
-            //            bool res = await vm.Init();
-            //            if (!res)
-            //            {
-            //                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-        }
-
-        private async void btnEventResult_Click(object sender, RoutedEventArgs e)
-        {
-            //    try
-            //    {
-            //        WindowScoreResult frm = new WindowScoreResult();
-            //        bool? result = frm.ShowDialog();
-            //        if (result == true || result == false)
-            //        {
-            //            bool res = await vm.Init();
-            //            if (!res)
-            //            {
-            //                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
-        }
-
-        private async void btnEditStageMaster_Click(object sender, RoutedEventArgs e)
-        {
-            //    try
-            //    {
-            //        WindowScoreResult frm = new WindowScoreResult();
-            //        bool? result = frm.ShowDialog();
-            //        if (result == true || result == false)
-            //        {
-            //            bool res = await vm.Init();
-            //            if (!res)
-            //            {
-            //                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
-            //            }
-            //        }
-            //    }
-            //    catch (Exception ex)
-            //    {
-            //        throw ex;
-            //    }
+            try
+            {
+                vm.ShowNewDialog(ConstItems.WindowType.EditRace);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

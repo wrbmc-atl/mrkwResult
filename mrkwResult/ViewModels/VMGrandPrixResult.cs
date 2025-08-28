@@ -163,22 +163,6 @@ namespace ViewModels
                 {
                     msg = "出発地と目的地を選択してください。";
                 }
-                else if (string.IsNullOrEmpty(_JissekiInfo.RACE_KBN))
-                {
-                    msg = "レース区分を入力してください。";
-                }
-                else if (_JissekiInfo.RACE_DATE == null)
-                {
-                    msg = "日付を選択してください。";
-                }
-                else if (_JissekiInfo.RANK == null)
-                {
-                    msg = "順位を入力してください。";
-                }
-                else if (_JissekiInfo.RATE_END == null)
-                {
-                    msg = "レートを入力してください。";
-                }
                 else
                 {
                     // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
@@ -268,30 +252,6 @@ namespace ViewModels
             }
 
             return dic;
-        }
-    }
-
-    // HelperクラスとしてBooleanToCharConverterを追加
-    // ★ここが修正点★
-    // BooleanToCharConverter を VMGrandPrixResult クラスの外側に移動
-    public class BooleanToCharConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is string s && s == "1")
-            {
-                return true;
-            }
-            return false;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
-        {
-            if (value is bool b && b)
-            {
-                return "1";
-            }
-            return "0";
         }
     }
 }

@@ -17,17 +17,28 @@ namespace Models
         public const string PKG_GetRaceInfo = "PKG_GRN_002.OPEN_CURSOR";
         public const string PKG_InsertRaceJssk = "PKG_GRN_003.OPEN_CURSOR";
         public const string PKG_GetCourseInfo = "PKG_GRN_004.OPEN_CURSOR";
+        public const string PKG_UpdateCourseMaster = "PKG_GRN_005.OPEN_CURSOR";
+        public const string PKG_UpdateRaceMaster = "PKG_GRN_006.OPEN_CURSOR";
 
 
         // メッセージ
         public const string InitError = "初期化に失敗しました。";
         public const string SearchError = "検索に失敗しました。";
         public const string InsertError = "登録に失敗しました。";
+        public const string UpdateError = "更新に失敗しました。";
+        public const string DeleteError = "削除に失敗しました。";
         public const string CheckError = "入力内容を確認してください。";
         public const string InsertComp = "登録に成功しました。";
         public const string UpdateComp = "更新に成功しました。";
         public const string DeleteComp = "削除に成功しました。";
 
         // その他
+
+        public enum WindowType
+        {
+            GrandPrix,
+            EditCourse,
+            EditRace
+        }
     }
 }

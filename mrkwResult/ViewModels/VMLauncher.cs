@@ -125,10 +125,25 @@ namespace ViewModels
             return DateTime.MinValue.Date;
         }
 
-        public void ShowNewDialog()
+        public void ShowNewDialog(ConstItems.WindowType winTyp)
         {
-            WindowGrandPrixResult frm = new WindowGrandPrixResult(ComIns);
-            bool? result = frm.ShowDialog();
+            switch (winTyp)
+            {
+                case ConstItems.WindowType.GrandPrix:
+                    WindowGrandPrixResult frm1 = new WindowGrandPrixResult(ComIns);
+                    bool? result1 = frm1.ShowDialog();
+                    break;
+                case ConstItems.WindowType.EditCourse:
+                    WindowEditCourseMaster frm2 = new WindowEditCourseMaster(ComIns);
+                    bool? result2 = frm2.ShowDialog();
+                    break;
+                case ConstItems.WindowType.EditRace:
+                    WindowEditRaceMaster frm3 = new WindowEditRaceMaster(ComIns);
+                    bool? result3 = frm3.ShowDialog();
+                    break;
+                default:
+                    break;
+            }
         }
 
     }

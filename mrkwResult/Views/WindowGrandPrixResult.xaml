@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
         xmlns:viewmodels="clr-namespace:ViewModels"
+        xmlns:converters="clr-namespace:mrkwResult.Common"  
         mc:Ignorable="d"
         FontSize="20"
         FontFamily="07やさしさゴシック"
@@ -15,7 +16,7 @@
         PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
-        <viewmodels:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
+        <converters:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
         <Style TargetType="TextBlock">
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>

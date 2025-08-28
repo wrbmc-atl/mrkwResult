@@ -1,0 +1,117 @@
+﻿using System;
+using System.Windows;
+using System.Windows.Input;
+using ViewModels;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using Models;
+using Services;
+using mrkwResult.Models.DBInfo;
+
+namespace Views
+{
+    /// <summary>
+    /// WindowEditCourseMaster.xaml の相互作用ロジック
+    /// </summary>
+    public partial class WindowEditCourseMaster : Window
+    {
+        private VMEditCourseMaster vm;
+
+        public WindowEditCourseMaster(CommonInstance comIns)
+        {
+            InitializeComponent();
+            vm = new VMEditCourseMaster(comIns);
+            this.DataContext = vm;
+        }
+
+        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            bool res = await vm.Init();
+            if (!res)
+            {
+                MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            cmbCourse_Search.Focus();
+            cmbCourse_Search.SelectedIndex = 0;
+        }
+
+        private void Window_PreviewKeyDown(object sender, KeyEventArgs e)
+        {
+            try
+            {
+                if (e.Key == Key.Escape)
+                {
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private async void SelectionChanged_SearchCOURSE_CD(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (e.AddedItems.Count > 0)
+                {
+                    vm.SelectedCourse = e.AddedItems[0] as M_COURSE;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private async void Click_Search(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                Dictionary<bool, string> res = await vm.Search();
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.SearchError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private async void UpdateButton_Click(object sender, RoutedEventArgs e)
+        {
+            // 登録確認メッセージボックスを表示
+            MessageBoxResult result = MessageBox.Show("登録しますか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                Dictionary<bool, string> res = await vm.Update();
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.UpdateError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(ConstItems.UpdateComp + res[true], "メッセージ", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+    }
+}

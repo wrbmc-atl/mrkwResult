@@ -120,11 +120,6 @@ namespace mrkwResult.Common
                                     SHTC_PIC1 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC1")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC1")),
                                     SHTC_PIC2 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC2")),
                                     REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK")),
-                                    //SKSI_DT = reader.IsDBNull(reader.GetOrdinal("SKSI_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SKSI_DT")),
-                                    //SKSIPGR_CD = reader.IsDBNull(reader.GetOrdinal("SKSIPGR_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKSIPGR_CD")),
-                                    //SISIKSHN_DT = reader.IsDBNull(reader.GetOrdinal("SISIKSHN_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SISIKSHN_DT")),
-                                    //SISIKSHNPRG_CD = reader.IsDBNull(reader.GetOrdinal("SISIKSHNPRG_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SISIKSHNPRG_CD")),
-                                    //SKJ_FLG = reader.IsDBNull(reader.GetOrdinal("SKJ_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKJ_FLG")),
                                     STAGE_TYP = reader.IsDBNull(reader.GetOrdinal("STAGE_TYP")) ? string.Empty : reader.GetString(reader.GetOrdinal("STAGE_TYP"))
                                 };
                             }
@@ -165,26 +160,16 @@ namespace mrkwResult.Common
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // すべてのパラメータを文字列に変換して追加
-                        // パラメータを追加
                         cmd.Parameters.Add("P_RACE_KBN", OracleDbType.Varchar2, racejssk.RACE_KBN, ParameterDirection.Input);
-
-                        // 日付を変換し、nullの場合はDBNull.Valueを渡す
                         cmd.Parameters.Add("P_RACE_DATE", OracleDbType.Varchar2, racejssk.RACE_DATE?.ToString("yyyy/MM/dd") ?? (object)DBNull.Value, ParameterDirection.Input);
-
                         cmd.Parameters.Add("P_START_CD", OracleDbType.Varchar2, racejssk.START_CD, ParameterDirection.Input);
                         cmd.Parameters.Add("P_GOAL_CD", OracleDbType.Varchar2, racejssk.GOAL_CD, ParameterDirection.Input);
                         cmd.Parameters.Add("P_STAGE_TYP", OracleDbType.Varchar2, racejssk.STAGE_TYP, ParameterDirection.Input);
-
-                        // C#の文字列型で渡す場合、nullや空文字列を適切に扱う
                         cmd.Parameters.Add("P_REVERSE_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.REVERSE_FLG) ? (object)DBNull.Value : racejssk.REVERSE_FLG, ParameterDirection.Input);
                         cmd.Parameters.Add("P_MIRROR_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.MIRROR_FLG) ? (object)DBNull.Value : racejssk.MIRROR_FLG, ParameterDirection.Input);
-
-                        // 数値を変換し、nullの場合はDBNull.Valueを渡す
                         cmd.Parameters.Add("P_RANK", OracleDbType.Varchar2, racejssk.RANK?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
                         cmd.Parameters.Add("P_HEADCOUNT", OracleDbType.Varchar2, racejssk.HEADCOUNT?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
                         cmd.Parameters.Add("P_RATE_END", OracleDbType.Varchar2, racejssk.RATE_END?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
-
                         cmd.Parameters.Add("P_REMARK", OracleDbType.Varchar2, racejssk.REMARK, ParameterDirection.Input);
                         cmd.Parameters.Add("CUR_ITEM", OracleDbType.RefCursor, ParameterDirection.InputOutput);
 
@@ -224,7 +209,6 @@ namespace mrkwResult.Common
                     {
                         cmd.CommandType = CommandType.StoredProcedure;
 
-                        // 明示的にパラメータを追加
                         cmd.Parameters.Add(new OracleParameter("P_COURSE_CD", OracleDbType.Varchar2, p_course_cd, ParameterDirection.Input));
 
                         // OUTパラメータとしてカーソルを定義
@@ -233,7 +217,6 @@ namespace mrkwResult.Common
 
                         using (OracleDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            // データが取得できた場合のみ、M_RACEオブジェクトにデータを設定
                             if (await reader.ReadAsync())
                             {
                                 stageInfo = new M_COURSE
@@ -262,12 +245,80 @@ namespace mrkwResult.Common
             }
             catch (Exception ex)
             {
-                // データベース操作に失敗した場合、より詳細なメッセージを含む例外を再スロー
                 throw new Exception("コースマスタの取得に失敗しました。", ex);
             }
 
             return stageInfo;
         }
 
+        public async Task<bool> UpdateCourseMasterAsync(string connectionString, string packageName, M_COURSE course)
+        {
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    using (OracleCommand cmd = new OracleCommand(packageName, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("P_COURSE_CD", OracleDbType.Varchar2, course.COURSE_CD, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_DISPORDER", OracleDbType.Varchar2, course.DISPORDER?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_ITEM", OracleDbType.Varchar2, course.ITEM, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC", OracleDbType.Varchar2, course.SHTC, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC_PIC", OracleDbType.Varchar2, course.SHTC_PIC, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_REMARK", OracleDbType.Varchar2, course.REMARK, ParameterDirection.Input);
+                        cmd.Parameters.Add("CUR_ITEM", OracleDbType.RefCursor, ParameterDirection.InputOutput);
+
+                        
+                        await cmd.ExecuteNonQueryAsync();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("コースマスタの更新に失敗しました。", ex);
+            }
+        }
+
+        public async Task<bool> UpdateRaceMasterAsync(string connectionString, string packageName, M_RACE race)
+        {
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    using (OracleCommand cmd = new OracleCommand(packageName, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("P_START_CD", OracleDbType.Varchar2, race.START_CD, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_GOAL_CD", OracleDbType.Varchar2, race.GOAL_CD, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_REVERSE_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(race.REVERSE_FLG) ? (object)DBNull.Value : race.REVERSE_FLG, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_DISPORDER", OracleDbType.Varchar2, race.DISPORDER?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_ITEM", OracleDbType.Varchar2, race.ITEM, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC1", OracleDbType.Varchar2, race.SHTC1, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC2", OracleDbType.Varchar2, race.SHTC2, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC_PIC1", OracleDbType.Varchar2, race.SHTC_PIC1, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_SHTC_PIC2", OracleDbType.Varchar2, race.SHTC_PIC2, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_REMARK", OracleDbType.Varchar2, race.REMARK, ParameterDirection.Input);
+                        cmd.Parameters.Add("CUR_ITEM", OracleDbType.RefCursor, ParameterDirection.InputOutput);
+
+                        
+                        await cmd.ExecuteNonQueryAsync();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("レースマスタの更新に失敗しました。", ex);
+            }
+        }
     }
 }
