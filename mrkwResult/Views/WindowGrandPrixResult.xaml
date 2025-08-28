@@ -4,17 +4,20 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Views"
+        xmlns:viewmodels="clr-namespace:ViewModels"
         mc:Ignorable="d"
         FontSize="20"
         FontFamily="07やさしさゴシック"
-        Title="WindowGrandPrixResult" 
-        Height="640" Width="1200"
+        Title="WindowGrandPrixResult"
+        Height="680" Width="1280"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
+        <viewmodels:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
         <Style TargetType="TextBlock">
+            <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
@@ -24,6 +27,7 @@
                     <Setter Property="Background" Value="LightBlue"/>
                 </Trigger>
             </Style.Triggers>
+            <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
@@ -60,19 +64,28 @@
             </Style.Triggers>
             <Setter Property="FontSize" Value="16"/>
         </Style>
+        <Style TargetType="DatePicker">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="20"/>
         </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
         <Style TargetType="DataGrid">
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="120"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="IsReadOnly" Value="True"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="5*"/>
             <RowDefinition Height="2*"/>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="4*"/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Header="検索" Margin="5">
             <Grid>
@@ -80,70 +93,122 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0,10,0">
-                    <TextBlock Text="ステージ"/>
+                    <TextBlock Text="コース"/>
                     <TextBlock Text="" Width="20"/>
-                    <ComboBox x:Name="cmbStartStage" SelectionChanged="SelectionChanged_StartStage"
-                        ItemsSource="{Binding obcStartStageList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        SelectedValuePath="STAGE_CD" DisplayMemberPath="STAGE_NM">
-                    </ComboBox>
+                    <ComboBox x:Name="cmbStartCourse" SelectionChanged="SelectionChanged_StartCourse"
+                              ItemsSource="{Binding obcStartCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM"/>
                     <TextBlock Text=" ≫ "/>
-                    <ComboBox x:Name="cmbGoalStage" SelectionChanged="SelectionChanged_GoalStage"
-                        ItemsSource="{Binding obcGoalStageList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        SelectedValuePath="STAGE_CD" DisplayMemberPath="STAGE_NM">
-                    </ComboBox>
+                    <ComboBox x:Name="cmbGoalCourse" SelectionChanged="SelectionChanged_GoalCourse"
+                              ItemsSource="{Binding obcGoalCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM"/>
                     <TextBlock Text="" Width="40"/>
                     <Button Content="検索" Click="Click_Search"/>
                 </StackPanel>
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1" Header="情報" Margin="5">
-            <StackPanel Margin="10">
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="出発地コード:" Width="120" Visibility="Collapsed"/>
-                    <TextBox Text="{Binding ResultInfo.START_CD}" Width="150" IsEnabled="False" Focusable="False" Visibility="Collapsed"/>
-                    <TextBlock Text="出発地:" Width="80" />
-                    <TextBox Text="{Binding ResultInfo.START_NM}" Width="270" IsEnabled="False" Focusable="False"/>
-                    <TextBlock Text="目的地コード:" Width="120" Margin="20,0,0,0" Visibility="Collapsed"/>
-                    <TextBox Text="{Binding ResultInfo.GOAL_CD}" Width="150" IsEnabled="False" Focusable="False" Visibility="Collapsed"/>
-                    <TextBlock Text="目的地:" Width="80" Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding ResultInfo.GOAL_NM}" Width="270" IsEnabled="False" Focusable="False"/>
-                    <TextBlock Text="ステージ種別:" Width="120" Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding ResultInfo.STAGE_TYP}" Width="100" IsEnabled="False" Focusable="False"/>
-                    <TextBlock Text="逆走:" Width="60" Margin="20,0,0,0"/>
-                    <TextBox Text="{Binding ResultInfo.REVERSE_FLG}" Width="100" IsEnabled="False" Focusable="False"/>
-                </StackPanel>
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="80"/>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="アイテム:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.ITEM}" Width="1000" IsEnabled="False" Focusable="False"/>
-                </StackPanel>
+                <TextBlock Text="出発地:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.START_NM}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <TextBlock Text="目的地:" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.GOAL_NM}" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <TextBlock Text="ステージ種別:" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.STAGE_TYP}" Grid.Row="0" Grid.Column="7" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <TextBlock Text="逆走:" Grid.Row="0" Grid.Column="9" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.REVERSE_FLG}" Grid.Row="0" Grid.Column="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="ショトカ1:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC1}" Width="800" IsEnabled="False" Focusable="False"/>
-                    <Button Content="画像1の表示" Click="Click_pic1" Margin="10,0,0,0"/>
-                </StackPanel>
+                <TextBlock Text="アイテム:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.ITEM}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="ショトカ2:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC2}" Width="800" IsEnabled="False" Focusable="False"/>
-                    <Button Content="画像2の表示" Click="Click_pic2" Margin="10,0,0,0"/>
-                </StackPanel>
+                <TextBlock Text="アイテム（コース）:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding CourseInfo.ITEM}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="ショトカ3:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.SHTC3}" Width="800" IsEnabled="False" Focusable="False"/>
-                    <Button Content="画像3の表示" Click="Click_pic3" Margin="10,0,0,0"/>
-                </StackPanel>
+                <TextBlock Text="ショトカ1:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.SHTC1}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Content="画像1の表示" Grid.Row="3" Grid.Column="12" Click="Click_pic1" Margin="0,5"/>
 
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
-                    <TextBlock Text="備考:" Width="120" />
-                    <TextBox Text="{Binding ResultInfo.REMARK}" Width="800" Height="60" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsEnabled="False" Focusable="False"/>
-                </StackPanel>
-            </StackPanel>
+                <TextBlock Text="ショトカ2:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.SHTC2}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Content="画像2の表示" Grid.Row="4" Grid.Column="12" Click="Click_pic2" Margin="0,5"/>
+
+                <TextBlock Text="ショトカ（コース）:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding CourseInfo.SHTC}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Content="画像3の表示" Grid.Row="5" Grid.Column="12" Click="Click_pic3" Margin="0,5"/>
+
+                <TextBlock Text="備考:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.REMARK}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsEnabled="False" Focusable="False" Margin="0,5"/>
+
+                <TextBlock Text="備考（コース）:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
+                <TextBox Text="{Binding CourseInfo.REMARK}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsEnabled="False" Focusable="False" Margin="0,5"/>
+            </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="2" Header="実績" Margin="5">
 
+        <GroupBox Grid.Row="2" Header="実績" Margin="5">
+            <Grid Margin="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
+                    <TextBlock Text="レース区分:" Width="100"/>
+                    <TextBox Text="{Binding JissekiInfo.RACE_KBN}" Width="100"/>
+                    <TextBlock Text="" Width="20"/>
+                    <TextBlock Text="日付:" Width="45" Margin="20,0,0,0"/>
+                    <DatePicker SelectedDate="{Binding JissekiInfo.RACE_DATE, StringFormat='{}{0:yyyy/MM/dd}'}" Width="150" />
+                    <TextBlock Text="" Width="20"/>
+                    <TextBlock Text="順位:" Width="45" Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding JissekiInfo.RANK}" Width="60"/>
+                    <TextBlock Text="参加人数:" Width="80" Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60"/>
+                    <TextBlock Text="" Width="20"/>
+                    <TextBlock Text="終了時レート:" Width="120" Margin="20,0,0,0"/>
+                    <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80"/>
+                    <TextBlock Text="" Width="20"/>
+                    <TextBlock Text="逆走:" Width="60" Margin="20,0,0,0"/>
+                    <CheckBox IsChecked="{Binding JissekiInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
+                    <TextBlock Text="" Width="20"/>
+                    <TextBlock Text="ミラー:" Width="60"/>
+                    <CheckBox IsChecked="{Binding JissekiInfo.MIRROR_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
+                </StackPanel>
+                <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
+                    <TextBlock Text="メモ:" Width="120" VerticalAlignment="Top"/>
+                    <TextBox Text="{Binding JissekiInfo.REMARK}" Width="800" AcceptsReturn="True"
+                                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                    <TextBlock Text="" Width="40"/>
+                    <Button Content="登録" Click="Click_Register" VerticalAlignment="Bottom"/>
+                </StackPanel>
+            </Grid>
         </GroupBox>
     </Grid>
 </Window>

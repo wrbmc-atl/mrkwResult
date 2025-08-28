@@ -1,22 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net.Sockets;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Data;
+using Oracle.ManagedDataAccess.Client;
+using mrkwResult.Common;
+using mrkwResult.Models.DBInfo;
 using Views;
 using Models;
-using System.IO;
-using System.Windows.Media;
-using System.Windows.Input;
-using System.Data;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using mrkwResult.Models.DBInfo;
-using Oracle.ManagedDataAccess.Client;
-using System.Windows;
-using mrkwResult.Common;
 
 namespace ViewModels
 {
@@ -26,6 +22,8 @@ namespace ViewModels
         {
             ComIns = comIns;
             req = new RequestToDB();
+            JissekiInfo = new T_RACEJSSK();
+            JissekiInfo.RACE_DATE = DateTime.Today;
         }
 
         #region プロパティ
@@ -33,41 +31,54 @@ namespace ViewModels
         public RequestToDB req;
         public CommonInstance ComIns;
 
-        private ObservableCollection<M_STGList> _obcStartStageList = new ObservableCollection<M_STGList>();
-        public ObservableCollection<M_STGList> obcStartStageList
+        private ObservableCollection<M_COURSE> _obcStartCourseList = new ObservableCollection<M_COURSE>();
+        public ObservableCollection<M_COURSE> obcStartCourseList
         {
-            get { return _obcStartStageList; }
-            set { _obcStartStageList = value; NotifyPropertyChanged(); }
+            get { return _obcStartCourseList; }
+            set { _obcStartCourseList = value; NotifyPropertyChanged(); }
         }
-        private M_STGList? _SelectedStartStageList;
-        public M_STGList? SelectedStartStageList
+        private M_COURSE? _SelectedStartCourse;
+        public M_COURSE? SelectedStartCourse
         {
-            get { return _SelectedStartStageList; }
-            set { _SelectedStartStageList = value; NotifyPropertyChanged(); }
-        }
-
-        private ObservableCollection<M_STGList> _obcGoalStageList = new ObservableCollection<M_STGList>();
-        public ObservableCollection<M_STGList> obcGoalStageList
-        {
-            get { return _obcGoalStageList; }
-            set { _obcGoalStageList = value; NotifyPropertyChanged(); }
-        }
-        private M_STGList? _SelectedGoalStageList;
-        public M_STGList? SelectedGoalStageList
-        {
-            get { return _SelectedGoalStageList; }
-            set { _SelectedGoalStageList = value; NotifyPropertyChanged(); }
+            get { return _SelectedStartCourse; }
+            set { _SelectedStartCourse = value; NotifyPropertyChanged(); }
         }
 
-        private M_STG? _ResultInfo;
-        public M_STG? ResultInfo
+        private ObservableCollection<M_COURSE> _obcGoalCourseList = new ObservableCollection<M_COURSE>();
+        public ObservableCollection<M_COURSE> obcGoalCourseList
+        {
+            get { return _obcGoalCourseList; }
+            set { _obcGoalCourseList = value; NotifyPropertyChanged(); }
+        }
+        private M_COURSE? _SelectedGoalCourse;
+        public M_COURSE? SelectedGoalCourse
+        {
+            get { return _SelectedGoalCourse; }
+            set { _SelectedGoalCourse = value; NotifyPropertyChanged(); }
+        }
+
+        private M_RACE? _ResultInfo;
+        public M_RACE? ResultInfo
         {
             get { return _ResultInfo; }
             set { _ResultInfo = value; NotifyPropertyChanged(); }
         }
 
-        #endregion
+        private M_COURSE? _CourseInfo;
+        public M_COURSE? CourseInfo
+        {
+            get { return _CourseInfo; }
+            set { _CourseInfo = value; NotifyPropertyChanged(); }
+        }
 
+        private T_RACEJSSK _JissekiInfo;
+        public T_RACEJSSK JissekiInfo
+        {
+            get { return _JissekiInfo; }
+            set { _JissekiInfo = value; NotifyPropertyChanged(); }
+        }
+
+        #endregion
 
         public async Task<bool> Init()
         {
@@ -75,7 +86,6 @@ namespace ViewModels
             {
                 bool ret = false;
                 await SetInitialize();
-
                 ret = true;
                 return ret;
             }
@@ -90,10 +100,8 @@ namespace ViewModels
             try
             {
                 bool ret = false;
-
-                obcStartStageList = await req.GetStageListAsync(ComIns.ConnStr, ConstItems.PKG_GetStageList);
-                obcGoalStageList = await req.GetStageListAsync(ComIns.ConnStr, ConstItems.PKG_GetStageList);
-
+                obcStartCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList);
+                obcGoalCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList);
                 ret = true;
                 return ret;
             }
@@ -111,17 +119,19 @@ namespace ViewModels
                 string msg = string.Empty;
                 Dictionary<bool, string> dic = new Dictionary<bool, string>();
 
-                if (_SelectedStartStageList == null)
+                if (_SelectedStartCourse == null)
                 {
                     msg = "出発地が選択されていません。";
                 }
-                else if (_SelectedGoalStageList == null)
+                else if (_SelectedGoalCourse == null)
                 {
                     msg = "目的地が選択されていません。";
                 }
                 else
                 {
-                    ResultInfo = await req.GetStageInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetStageInfo, _SelectedStartStageList.STAGE_CD, _SelectedGoalStageList.STAGE_CD);
+                    ResultInfo = await req.GetRaceInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetRaceInfo, _SelectedStartCourse.COURSE_CD, _SelectedGoalCourse.COURSE_CD);
+                    CourseInfo = await req.GetCourseInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseInfo, _SelectedGoalCourse.COURSE_CD);
+
                     if (ResultInfo == null)
                     {
                         msg = "検索結果が0件でした。";
@@ -140,12 +150,70 @@ namespace ViewModels
             }
         }
 
+        internal async Task<Dictionary<bool, string>> Insert()
+        {
+            try
+            {
+                bool ret = false;
+                string msg = string.Empty;
+                Dictionary<bool, string> dic = new Dictionary<bool, string>();
+
+                // 入力値のバリデーション
+                if (_SelectedStartCourse == null || _SelectedGoalCourse == null)
+                {
+                    msg = "出発地と目的地を選択してください。";
+                }
+                else if (string.IsNullOrEmpty(_JissekiInfo.RACE_KBN))
+                {
+                    msg = "レース区分を入力してください。";
+                }
+                else if (_JissekiInfo.RACE_DATE == null)
+                {
+                    msg = "日付を選択してください。";
+                }
+                else if (_JissekiInfo.RANK == null)
+                {
+                    msg = "順位を入力してください。";
+                }
+                else if (_JissekiInfo.RATE_END == null)
+                {
+                    msg = "レートを入力してください。";
+                }
+                else
+                {
+                    // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
+                    _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
+                    _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
+                    _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
+
+                    // 登録処理の実行
+                    ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
+
+                    if (ret)
+                    {
+                        msg = "実績の登録が完了しました。";
+                    }
+                    else
+                    {
+                        msg = "実績の登録に失敗しました。";
+                    }
+                }
+
+                dic.Add(ret, msg);
+                return dic;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         internal async Task<Dictionary<bool, string>> ShowPicture(string picNumber)
         {
             var dic = new Dictionary<bool, string>();
             string msg = string.Empty;
 
-            if (ResultInfo == null)
+            if (ResultInfo == null && CourseInfo == null)
             {
                 msg = "表示する画像情報がありません。";
                 dic.Add(false, msg);
@@ -156,13 +224,13 @@ namespace ViewModels
             switch (picNumber)
             {
                 case "1":
-                    imageFileName = ResultInfo.SHTC_PIC1;
+                    imageFileName = ResultInfo?.SHTC_PIC1;
                     break;
                 case "2":
-                    imageFileName = ResultInfo.SHTC_PIC2;
+                    imageFileName = ResultInfo?.SHTC_PIC2;
                     break;
                 case "3":
-                    imageFileName = ResultInfo.SHTC_PIC3;
+                    imageFileName = CourseInfo?.SHTC_PIC;
                     break;
                 default:
                     msg = "無効な画像番号です。";
@@ -201,6 +269,29 @@ namespace ViewModels
 
             return dic;
         }
+    }
 
+    // HelperクラスとしてBooleanToCharConverterを追加
+    // ★ここが修正点★
+    // BooleanToCharConverter を VMGrandPrixResult クラスの外側に移動
+    public class BooleanToCharConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is string s && s == "1")
+            {
+                return true;
+            }
+            return false;
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
+        {
+            if (value is bool b && b)
+            {
+                return "1";
+            }
+            return "0";
+        }
     }
 }

@@ -13,9 +13,10 @@ namespace Models
         public const string ConnStrProd = "User ID=mrkw_prod;Password=mrkw_prod;Data Source=localhost:1521/XEPDB1;";
         
         // パッケージ名
-        public const string PKG_GetStageList = "PKG_GRN_001.OPEN_CURSOR";
-        public const string PKG_GetStageInfo = "PKG_GRN_002.OPEN_CURSOR";
-        public const string PKG_InsertRacejssk = "PKG_GRN_003.OPEN_CURSOR";
+        public const string PKG_GetCourseList = "PKG_GRN_001.OPEN_CURSOR";
+        public const string PKG_GetRaceInfo = "PKG_GRN_002.OPEN_CURSOR";
+        public const string PKG_InsertRaceJssk = "PKG_GRN_003.OPEN_CURSOR";
+        public const string PKG_GetCourseInfo = "PKG_GRN_004.OPEN_CURSOR";
 
 
         // メッセージ
@@ -23,6 +24,9 @@ namespace Models
         public const string SearchError = "検索に失敗しました。";
         public const string InsertError = "登録に失敗しました。";
         public const string CheckError = "入力内容を確認してください。";
+        public const string InsertComp = "登録に成功しました。";
+        public const string UpdateComp = "更新に成功しました。";
+        public const string DeleteComp = "削除に成功しました。";
 
         // その他
     }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace mrkwResult.Models.DBInfo
 {
-    public class M_STG
+    public class M_RACE
     {
         private string _START_CD = string.Empty;
         public string START_CD
@@ -15,18 +15,18 @@ namespace mrkwResult.Models.DBInfo
             set { _START_CD = value; }
         }
 
-        private string _START_NM = string.Empty;
-        public string START_NM
-        {
-            get { return _START_NM; }
-            set { _START_NM = value; }
-        }
-
         private string _GOAL_CD = string.Empty;
         public string GOAL_CD
         {
             get { return _GOAL_CD; }
             set { _GOAL_CD = value; }
+        }
+
+        private string _START_NM = string.Empty;
+        public string START_NM
+        {
+            get { return _START_NM; }
+            set { _START_NM = value; }
         }
 
         private string _GOAL_NM = string.Empty;
@@ -43,8 +43,8 @@ namespace mrkwResult.Models.DBInfo
             set { _REVERSE_FLG = value; }
         }
 
-        private string _DISPORDER = string.Empty;
-        public string DISPORDER
+        private long? _DISPORDER;
+        public long? DISPORDER
         {
             get { return _DISPORDER; }
             set { _DISPORDER = value; }
@@ -63,19 +63,12 @@ namespace mrkwResult.Models.DBInfo
             get { return _SHTC1; }
             set { _SHTC1 = value; }
         }
-        
+
         private string _SHTC2 = string.Empty;
         public string SHTC2
         {
             get { return _SHTC2; }
             set { _SHTC2 = value; }
-        }
-
-        private string _SHTC3 = string.Empty;
-        public string SHTC3
-        {
-            get { return _SHTC3; }
-            set { _SHTC3 = value; }
         }
 
         private string _SHTC_PIC1 = string.Empty;
@@ -90,13 +83,6 @@ namespace mrkwResult.Models.DBInfo
         {
             get { return _SHTC_PIC2; }
             set { _SHTC_PIC2 = value; }
-        }
-
-        private string _SHTC_PIC3 = string.Empty;
-        public string SHTC_PIC3
-        {
-            get { return _SHTC_PIC3; }
-            set { _SHTC_PIC3 = value; }
         }
 
         private string _REMARK = string.Empty;

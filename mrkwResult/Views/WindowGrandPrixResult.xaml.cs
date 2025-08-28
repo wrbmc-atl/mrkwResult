@@ -29,9 +29,9 @@ namespace Views
                 {
                     MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
-                cmbStartStage.Focus();
-                cmbStartStage.SelectedIndex = 0;
-                cmbGoalStage.SelectedIndex = 0;
+                cmbStartCourse.Focus();
+                cmbStartCourse.SelectedIndex = 0;
+                cmbGoalCourse.SelectedIndex = 0;
             }
             catch (Exception ex)
             {
@@ -46,38 +46,6 @@ namespace Views
                 if (e.Key == Key.Escape)
                 {
                     this.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
-            }
-        }
-
-        private void SelectionChanged_StartStage(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            try
-            {
-                if (e.AddedItems.Count > 0)
-                {
-                    vm.SelectedStartStageList = e.AddedItems[0] as M_STGList;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
-            }
-        }
-
-        private void SelectionChanged_GoalStage(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            try
-            {
-                if (e.AddedItems.Count > 0)
-                {
-                    vm.SelectedGoalStageList = e.AddedItems[0] as M_STGList;
                 }
             }
             catch (Exception ex)
@@ -154,5 +122,68 @@ namespace Views
                 throw ex;
             }
         }
+
+        private async void Click_Register(object sender, RoutedEventArgs e)
+        {
+            // 登録確認メッセージボックスを表示
+            MessageBoxResult result = MessageBox.Show("登録しますか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                Dictionary<bool, string> res = await vm.Insert();
+                if (res.ContainsKey(false))
+                {
+                    MessageBox.Show(ConstItems.InsertError + res[false], "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                else
+                {
+                    MessageBox.Show(ConstItems.InsertComp + res[true], "メッセージ", MessageBoxButton.OK, MessageBoxImage.Information);
+                    this.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private void SelectionChanged_StartCourse(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (e.AddedItems.Count > 0)
+                {
+                    vm.SelectedStartCourse = e.AddedItems[0] as M_COURSE;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
+        private void SelectionChanged_GoalCourse(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (e.AddedItems.Count > 0)
+                {
+                    vm.SelectedGoalCourse = e.AddedItems[0] as M_COURSE;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+                throw ex;
+            }
+        }
+
     }
 }
