@@ -92,5 +92,13 @@ namespace mrkwResult.Models.DBInfo
             get { return _SKJ_FLG; }
             set { _SKJ_FLG = value; NotifyPropertyChanged(); }
         }
+
+        private string _COURSE_NM_DISP = string.Empty;
+        public string COURSE_NM_DISP
+        {
+            get { return _COURSE_NM_DISP; }
+            set { _COURSE_NM_DISP = value; NotifyPropertyChanged(); }
+        }
+
     }
 }

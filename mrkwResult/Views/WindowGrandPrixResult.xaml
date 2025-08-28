@@ -45,7 +45,7 @@
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="270"/>
+            <Setter Property="Width" Value="320"/>
             <Setter Property="FontSize" Value="16"/>
         </Style>
         <Style TargetType="CheckBox">
@@ -98,13 +98,13 @@
                     <TextBlock Text="" Width="20"/>
                     <ComboBox x:Name="cmbStartCourse" SelectionChanged="SelectionChanged_StartCourse"
                               ItemsSource="{Binding obcStartCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM"/>
+                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP"/>
                     <TextBlock Text=" ≫ "/>
                     <ComboBox x:Name="cmbGoalCourse" SelectionChanged="SelectionChanged_GoalCourse"
                               ItemsSource="{Binding obcGoalCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM"/>
+                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP"/>
                     <TextBlock Text="" Width="40"/>
-                    <Button Content="検索" Click="Click_Search"/>
+                    <Button Content="検索" Click="Click_Search" HorizontalAlignment="Right"/>
                 </StackPanel>
             </Grid>
         </GroupBox>

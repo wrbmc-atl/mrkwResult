@@ -93,14 +93,14 @@
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="280"/>
+                    <ColumnDefinition Width="320"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="コース:" Grid.Column="0" VerticalAlignment="Center" Margin="5" Width="80"/>
-                <ComboBox x:Name="cmbCourse_Search" Grid.Column="1" SelectionChanged="SelectionChanged_SearchCOURSE_CD" Width="280"
+                <ComboBox x:Name="cmbCourse_Search" Grid.Column="1" SelectionChanged="SelectionChanged_SearchCOURSE_CD" Width="300"
                         ItemsSource="{Binding obcCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM">
+                        SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
                 </ComboBox>
                 <Button Content="検索" Click="Click_Search" Grid.Column="4" Margin="5"/>
             </Grid>

@@ -37,21 +37,20 @@ namespace mrkwResult.Common
                         {
                             while (await reader.ReadAsync())
                             {
-                                var stageItem = new M_COURSE
-                                {
-                                    COURSE_CD = reader.IsDBNull(reader.GetOrdinal("COURSE_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_CD")),
-                                    COURSE_NM = reader.IsDBNull(reader.GetOrdinal("COURSE_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM")),
-                                    DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER")),
-                                    ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM")),
-                                    SHTC = reader.IsDBNull(reader.GetOrdinal("SHTC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC")),
-                                    SHTC_PIC = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC")),
-                                    REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK")),
-                                    SKSI_DT = reader.IsDBNull(reader.GetOrdinal("SKSI_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SKSI_DT")),
-                                    SKSIPGR_CD = reader.IsDBNull(reader.GetOrdinal("SKSIPGR_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKSIPGR_CD")),
-                                    SISIKSHN_DT = reader.IsDBNull(reader.GetOrdinal("SISIKSHN_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SISIKSHN_DT")),
-                                    SISIKSHNPRG_CD = reader.IsDBNull(reader.GetOrdinal("SISIKSHNPRG_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SISIKSHNPRG_CD")),
-                                    SKJ_FLG = reader.IsDBNull(reader.GetOrdinal("SKJ_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKJ_FLG"))
-                                };
+                                var stageItem = new M_COURSE();
+                                stageItem.COURSE_CD = reader.IsDBNull(reader.GetOrdinal("COURSE_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_CD"));
+                                stageItem.COURSE_NM = reader.IsDBNull(reader.GetOrdinal("COURSE_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM"));
+                                stageItem.DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER"));
+                                stageItem.ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM"));
+                                stageItem.SHTC = reader.IsDBNull(reader.GetOrdinal("SHTC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC"));
+                                stageItem.SHTC_PIC = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC"));
+                                stageItem.REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK"));
+                                stageItem.SKSI_DT = reader.IsDBNull(reader.GetOrdinal("SKSI_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SKSI_DT"));
+                                stageItem.SKSIPGR_CD = reader.IsDBNull(reader.GetOrdinal("SKSIPGR_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKSIPGR_CD"));
+                                stageItem.SISIKSHN_DT = reader.IsDBNull(reader.GetOrdinal("SISIKSHN_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SISIKSHN_DT"));
+                                stageItem.SISIKSHNPRG_CD = reader.IsDBNull(reader.GetOrdinal("SISIKSHNPRG_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SISIKSHNPRG_CD"));
+                                stageItem.SKJ_FLG = reader.IsDBNull(reader.GetOrdinal("SKJ_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKJ_FLG"));
+                                stageItem.COURSE_NM_DISP = reader.IsDBNull(reader.GetOrdinal("COURSE_NM_DISP")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM_DISP"));
                                 stageList.Add(stageItem);
                             }
                         }
@@ -60,8 +59,6 @@ namespace mrkwResult.Common
             }
             catch (Exception ex)
             {
-                // ここでは例外をスローせず、呼び出し元で処理させる
-                // もしくはログに記録するなど
                 throw new Exception("コースマスタの取得に失敗しました。", ex);
             }
 
@@ -100,7 +97,6 @@ namespace mrkwResult.Common
 
                         using (OracleDataReader reader = await cmd.ExecuteReaderAsync())
                         {
-                            // データが取得できた場合のみ、M_RACEオブジェクトにデータを設定
                             if (await reader.ReadAsync())
                             {
                                 stageInfo = new M_RACE();
@@ -190,7 +186,6 @@ namespace mrkwResult.Common
         /// <exception cref="Exception">データベース操作失敗時にスローされます。</exception>
         public async Task<M_COURSE> GetCourseInfoAsync(string connectionString, string packageName, string p_course_cd)
         {
-            // M_COURSE型のインスタンスを初期化。もしデータが見つからなければ、この初期値が返される。
             var stageInfo = new M_COURSE();
 
             try
@@ -213,21 +208,19 @@ namespace mrkwResult.Common
                         {
                             if (await reader.ReadAsync())
                             {
-                                stageInfo = new M_COURSE
-                                {
-                                    COURSE_CD = reader.IsDBNull(reader.GetOrdinal("COURSE_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_CD")),
-                                    COURSE_NM = reader.IsDBNull(reader.GetOrdinal("COURSE_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM")),
-                                    DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER")),
-                                    ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM")),
-                                    SHTC = reader.IsDBNull(reader.GetOrdinal("SHTC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC")),
-                                    SHTC_PIC = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC")),
-                                    REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK")),
-                                    SKSI_DT = reader.IsDBNull(reader.GetOrdinal("SKSI_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SKSI_DT")),
-                                    SKSIPGR_CD = reader.IsDBNull(reader.GetOrdinal("SKSIPGR_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKSIPGR_CD")),
-                                    SISIKSHN_DT = reader.IsDBNull(reader.GetOrdinal("SISIKSHN_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SISIKSHN_DT")),
-                                    SISIKSHNPRG_CD = reader.IsDBNull(reader.GetOrdinal("SISIKSHNPRG_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SISIKSHNPRG_CD")),
-                                    SKJ_FLG = reader.IsDBNull(reader.GetOrdinal("SKJ_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKJ_FLG"))
-                                };
+                                stageInfo.COURSE_CD = reader.IsDBNull(reader.GetOrdinal("COURSE_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_CD"));
+                                stageInfo.COURSE_NM = reader.IsDBNull(reader.GetOrdinal("COURSE_NM")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM"));
+                                stageInfo.DISPORDER = reader.IsDBNull(reader.GetOrdinal("DISPORDER")) ? (long?)null : reader.GetInt64(reader.GetOrdinal("DISPORDER"));
+                                stageInfo.ITEM = reader.IsDBNull(reader.GetOrdinal("ITEM")) ? string.Empty : reader.GetString(reader.GetOrdinal("ITEM"));
+                                stageInfo.SHTC = reader.IsDBNull(reader.GetOrdinal("SHTC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC"));
+                                stageInfo.SHTC_PIC = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC"));
+                                stageInfo.REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK"));
+                                stageInfo.SKSI_DT = reader.IsDBNull(reader.GetOrdinal("SKSI_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SKSI_DT"));
+                                stageInfo.SKSIPGR_CD = reader.IsDBNull(reader.GetOrdinal("SKSIPGR_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKSIPGR_CD"));
+                                stageInfo.SISIKSHN_DT = reader.IsDBNull(reader.GetOrdinal("SISIKSHN_DT")) ? (DateTime?)null : reader.GetDateTime(reader.GetOrdinal("SISIKSHN_DT"));
+                                stageInfo.SISIKSHNPRG_CD = reader.IsDBNull(reader.GetOrdinal("SISIKSHNPRG_CD")) ? string.Empty : reader.GetString(reader.GetOrdinal("SISIKSHNPRG_CD"));
+                                stageInfo.SKJ_FLG = reader.IsDBNull(reader.GetOrdinal("SKJ_FLG")) ? string.Empty : reader.GetString(reader.GetOrdinal("SKJ_FLG"));
+                                stageInfo.COURSE_NM_DISP = reader.IsDBNull(reader.GetOrdinal("COURSE_NM_DISP")) ? string.Empty : reader.GetString(reader.GetOrdinal("COURSE_NM_DISP"));
                             }
                             else
                             {
