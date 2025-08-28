@@ -16,6 +16,7 @@ using System.Collections.ObjectModel;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ViewModels
 {
@@ -33,6 +34,13 @@ namespace ViewModels
         {
             get { return _version; }
             set { _version = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _direction;
+        public string direction
+        {
+            get { return _direction; }
+            set { _direction = value; NotifyPropertyChanged(); }
         }
 
         public async Task<bool> Init()
@@ -56,8 +64,9 @@ namespace ViewModels
             try
             {
                 bool ret = false;
-                version = "Launcher_" + GetBuildDate().ToString("yy.M.d");
                 GetConfigInfo();
+                version = "Launcher_" + GetBuildDate().ToString("yy.M.d");
+                version += direction == "dev" ? "_開発環境" : "_本番環境";
 
                 ret = true;
                 return ret;
@@ -78,7 +87,7 @@ namespace ViewModels
                 XDocument doc = XDocument.Load(configFilePath);
 
                 // <Direction>要素の値を取得
-                string direction = doc.Descendants("Direction").FirstOrDefault()?.Value;
+                direction = doc.Descendants("Direction").FirstOrDefault()?.Value;
 
                 // 値が取得できたか確認し、switch文で分岐
                 if (!string.IsNullOrEmpty(direction))
