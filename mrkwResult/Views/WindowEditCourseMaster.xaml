@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         xmlns:local="clr-namespace:Views"
         xmlns:viewmodels="clr-namespace:ViewModels"
         xmlns:converters="clr-namespace:mrkwResult.Common"  
@@ -10,67 +11,97 @@
         FontSize="20"
         FontFamily="07やさしさゴシック"
         Title="コースマスタ編集"
-        Height="600" Width="900"
+        Height="640" Width="900"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#F0F4F8" Offset="0"/>
+            <GradientStop Color="#E0E8F0" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
         <converters:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
         <Style TargetType="TextBlock">
-            <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
+                    <Setter Property="Background" Value="#E6F2FF"/>
+                    <Setter Property="BorderBrush" Value="#3399FF"/>
                 </Trigger>
             </Style.Triggers>
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
         <Style TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#3399FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2E6DA4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#286090"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#204d74"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="ComboBox">
             <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="270"/>
+            <Setter Property="Width" Value="300"/>
             <Setter Property="FontSize" Value="16"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
         <Style TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="RadioButton">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="16"/>        
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="DatePicker">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="#444444"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="10"/>
         </Style>
         <Style TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -80,72 +111,91 @@
             <Setter Property="Width" Value="120"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="iconPacks:PackIconMaterial">
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
-
-    <Grid Margin="10">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <GroupBox Header="検索" Grid.Row="0" Margin="0,5">
+    <Grid Margin="20">
+        <Grid.Effect>
+            <DropShadowEffect Color="#0000A0" Direction="315" ShadowDepth="5" BlurRadius="10" Opacity="0.2"/>
+        </Grid.Effect>
+        <Border Background="White" CornerRadius="10" Padding="10">
             <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="320"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="Auto"/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Text="コース:" Grid.Column="0" VerticalAlignment="Center" Margin="5" Width="80"/>
-                <ComboBox x:Name="cmbCourse_Search" Grid.Column="1" SelectionChanged="SelectionChanged_SearchCOURSE_CD" Width="300"
-                        ItemsSource="{Binding obcCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                        SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
-                </ComboBox>
-                <Button Content="検索" Click="Click_Search" Grid.Column="4" Margin="5"/>
-            </Grid>
-        </GroupBox>
-
-        <GroupBox Header="コース情報" Grid.Row="1" Margin="0,10,0,0">
-            <Grid Margin="10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <TextBlock Text="コース:" Grid.Row="2" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.COURSE_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5" IsEnabled="False" Focusable="False"/>
-
-                <TextBlock Text="表示順:" Grid.Row="3" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
-
-                <TextBlock Text="アイテム:" Grid.Row="4" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
-
-                <TextBlock Text="ショートカット:" Grid.Row="5" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.SHTC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
-
-                <TextBlock Text="画像パス:" Grid.Row="6" Grid.Column="0" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.SHTC_PIC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
-
-                <TextBlock Text="備考:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
-                <TextBox Text="{Binding CourseInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
-
+                <GroupBox Header="検索" Grid.Row="0" Margin="0,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="コース:" Grid.Column="0" VerticalAlignment="Center" Margin="5" Width="80"/>
+                        <ComboBox x:Name="cmbCourse_Search" Grid.Column="1" SelectionChanged="SelectionChanged_SearchCOURSE_CD"
+                                ItemsSource="{Binding obcCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP" Margin="5" HorizontalAlignment="Left"/>
+                        <Button Click="Click_Search" Grid.Column="3" Margin="5">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <iconPacks:PackIconMaterial Kind="Magnify" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                <TextBlock Text="検索" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                            </Grid>
+                        </Button>
+                    </Grid>
+                </GroupBox>
+                <GroupBox Header="コース情報" Grid.Row="1" Margin="0,10,0,0">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="コース:" Grid.Row="2" Grid.Column="0" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.COURSE_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="2" Grid.Column="1" Margin="5" IsEnabled="False" Focusable="False"/>
+                        <TextBlock Text="表示順:" Grid.Row="3" Grid.Column="0" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.DISPORDER, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="3" Grid.Column="1" Margin="5" TextAlignment="Right" IsEnabled="False" Focusable="False"/>
+                        <TextBlock Text="アイテム:" Grid.Row="4" Grid.Column="0" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.ITEM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="4" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="ショートカット:" Grid.Row="5" Grid.Column="0" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.SHTC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="5" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="画像パス:" Grid.Row="6" Grid.Column="0" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.SHTC_PIC, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="6" Grid.Column="1" Margin="5"/>
+                        <TextBlock Text="備考:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="5"/>
+                        <TextBox Text="{Binding CourseInfo.REMARK, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Grid.Row="7" Grid.Column="1" Height="80" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" Margin="5"/>
+                    </Grid>
+                </GroupBox>
+                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
+                    <Button Click="UpdateButton_Click" Margin="5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <iconPacks:PackIconMaterial Kind="ContentSave" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0" Foreground="White"/>
+                            <TextBlock Text="更新" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                        </Grid>
+                    </Button>
+                </StackPanel>
             </Grid>
-        </GroupBox>
-
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,10,0,0">
-            <Button Content="更新" Click="UpdateButton_Click" Margin="5"/>
-        </StackPanel>
+        </Border>
     </Grid>
 </Window>

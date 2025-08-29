@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         xmlns:local="clr-namespace:Views"
         xmlns:viewmodels="clr-namespace:ViewModels"
         xmlns:converters="clr-namespace:mrkwResult.Common"  
@@ -104,7 +105,7 @@
                         ItemsSource="{Binding obcStartCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
                 </ComboBox>
-                <TextBlock Text="ゴール:" Grid.Column="2" VerticalAlignment="Center" Margin="5" Width="80"/>
+                <TextBlock Text="　ゴール:" Grid.Column="2" VerticalAlignment="Center" Margin="5" Width="80"/>
                 <ComboBox x:Name="cmbGoal_Search" Grid.Column="3" SelectionChanged="SelectionChanged_SearchGOAL_CD" Width="300"
                         ItemsSource="{Binding obcGoalCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                         SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
@@ -136,9 +137,9 @@
 
                 <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal">
                     <TextBlock Text="スタート:" Margin="5"/>
-                    <TextBox Text="{Binding RaceInfo.START_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" IsEnabled="False" Focusable="False"/>
-                    <TextBlock Text="ゴール:" Margin="5"/>
-                    <TextBox Text="{Binding RaceInfo.GOAL_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" IsEnabled="False" Focusable="False"/>
+                    <TextBox Text="{Binding RaceInfo.START_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" MinWidth="240" IsEnabled="False" Focusable="False"/>
+                    <TextBlock Text="　ゴール:" Margin="5"/>
+                    <TextBox Text="{Binding RaceInfo.GOAL_NM, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" Margin="5" MinWidth="240" IsEnabled="False" Focusable="False"/>
                 </StackPanel>
                 
                 <TextBlock Text="表示順:" Grid.Row="3" Grid.Column="0" Margin="5"/>
