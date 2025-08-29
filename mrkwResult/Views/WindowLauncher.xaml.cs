@@ -18,11 +18,11 @@ namespace Views
             this.DataContext = vm;
         }
 
-        private async void Window_Loaded(object sender, RoutedEventArgs e)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             try
             {
-                bool res = await vm.Init();
+                bool res = vm.Init();
                 if (!res)
                 {
                     MessageBox.Show(ConstItems.InitError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
@@ -31,7 +31,7 @@ namespace Views
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
 
@@ -43,7 +43,7 @@ namespace Views
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
 
@@ -55,7 +55,7 @@ namespace Views
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
 
@@ -67,7 +67,7 @@ namespace Views
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
     }

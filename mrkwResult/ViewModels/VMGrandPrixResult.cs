@@ -89,9 +89,9 @@ namespace ViewModels
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -105,20 +105,19 @@ namespace ViewModels
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
         internal async Task<Dictionary<bool, string>> Search()
         {
+            bool ret = false;
+            string msg = string.Empty;
+            Dictionary<bool, string> dic = new Dictionary<bool, string>();
             try
             {
-                bool ret = false;
-                string msg = string.Empty;
-                Dictionary<bool, string> dic = new Dictionary<bool, string>();
-
                 if (_SelectedStartCourse == null)
                 {
                     msg = "出発地が選択されていません。";
@@ -146,18 +145,20 @@ namespace ViewModels
             }
             catch (Exception ex)
             {
-                throw ex;
+                ret = false;
+                msg = ex.Message;
+                dic.Add(ret, msg);
+                return dic;
             }
         }
 
         internal async Task<Dictionary<bool, string>> Insert()
         {
+            bool ret = false;
+            string msg = string.Empty;
+            Dictionary<bool, string> dic = new Dictionary<bool, string>();
             try
             {
-                bool ret = false;
-                string msg = string.Empty;
-                Dictionary<bool, string> dic = new Dictionary<bool, string>();
-
                 // 入力値のバリデーション
                 if (_SelectedStartCourse == null || _SelectedGoalCourse == null)
                 {
@@ -165,21 +166,27 @@ namespace ViewModels
                 }
                 else
                 {
-                    // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
-                    _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
-                    _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
-                    _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
-
-                    // 登録処理の実行
-                    ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
-
-                    if (ret)
+                    if (_JissekiInfo == null || ResultInfo == null)
                     {
-                        msg = "実績の登録が完了しました。";
+                        msg = "レース情報が選択されていません。コースの検索を行ってください。";
                     }
                     else
                     {
-                        msg = "実績の登録に失敗しました。";
+                        // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
+                        _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
+                        _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
+                        _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
+
+                        ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
+
+                        if (ret)
+                        {
+                            msg = "実績の登録が完了しました。";
+                        }
+                        else
+                        {
+                            msg = "実績の登録に失敗しました。";
+                        }
                     }
                 }
 
@@ -188,7 +195,10 @@ namespace ViewModels
             }
             catch (Exception ex)
             {
-                throw ex;
+                ret = false;
+                msg = ex.Message;
+                dic.Add(ret, msg);
+                return dic;
             }
         }
 

@@ -43,23 +43,23 @@ namespace ViewModels
             set { _direction = value; NotifyPropertyChanged(); }
         }
 
-        public async Task<bool> Init()
+        public bool Init()
         {
             try
             {
                 bool ret = false;
-                await SetInitialize();
+                SetInitialize();
 
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
-        internal async Task<bool> SetInitialize()
+        internal bool SetInitialize()
         {
             try
             {
@@ -71,9 +71,9 @@ namespace ViewModels
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -114,7 +114,7 @@ namespace ViewModels
             {
                 // XMLファイルの読み込みエラーなど
                 Console.WriteLine($"設定ファイルの読み込み中にエラーが発生しました: {ex.Message}");
-                throw; // 呼び出し元に例外を再スロー
+                return;
             }
         }
 

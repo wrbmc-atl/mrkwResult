@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         FontSize="20"
         FontFamily="07やさしさゴシック"
-        Title="WindowGrandPrixResult"
+        Title="レース実績登録_WindowGrandPrixResult"
         Height="680" Width="1280"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"

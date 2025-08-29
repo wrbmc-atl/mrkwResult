@@ -6,7 +6,7 @@
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         xmlns:local="clr-namespace:Views"
         mc:Ignorable="d"
-        Title="WindowImageViewer" Height="600" Width="800"
+        Title="画像表示_WindowImageViewer" Height="600" Width="800"
         WindowStartupLocation="CenterScreen"
         PreviewKeyDown="Window_PreviewKeyDown">
     <Grid>

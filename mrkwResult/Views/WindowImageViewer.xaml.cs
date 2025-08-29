@@ -55,7 +55,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 

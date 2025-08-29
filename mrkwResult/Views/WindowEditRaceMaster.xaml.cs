@@ -45,11 +45,10 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
-        private async void SelectionChanged_SearchSTART_CD(object sender, SelectionChangedEventArgs e)
+        private void SelectionChanged_SearchSTART_CD(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -61,11 +60,10 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
-        private async void SelectionChanged_SearchGOAL_CD(object sender, SelectionChangedEventArgs e)
+        private void SelectionChanged_SearchGOAL_CD(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -77,7 +75,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -94,7 +91,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -107,7 +103,6 @@ namespace Views
             {
                 return;
             }
-
             try
             {
                 Dictionary<bool, string> res = await vm.Update();
@@ -124,7 +119,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
     }

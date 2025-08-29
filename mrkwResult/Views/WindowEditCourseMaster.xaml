@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         FontSize="20"
         FontFamily="07やさしさゴシック"
-        Title="コースマスタ編集"
+        Title="コースマスタ編集_WindowEditCourseMaster"
         Height="640" Width="900"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"

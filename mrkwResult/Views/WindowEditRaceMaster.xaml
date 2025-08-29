@@ -10,7 +10,7 @@
         mc:Ignorable="d"
         FontSize="20"
         FontFamily="07やさしさゴシック"
-        Title="レースマスタ編集"
+        Title="レースマスタ編集_WindowEditRaceMaster"
         Height="680" Width="960"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"

@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Data;
 using System.Threading.Tasks;
+using DocumentFormat.OpenXml.Wordprocessing;
+using System.Windows.Interop;
 using Models;
 using mrkwResult.Common;
 using mrkwResult.Models.DBInfo;
@@ -54,9 +56,9 @@ namespace Services
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
@@ -69,20 +71,19 @@ namespace Services
                 ret = true;
                 return ret;
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                return false;
             }
         }
 
         internal async Task<Dictionary<bool, string>> Search()
         {
+            bool ret = false;
+            string msg = string.Empty;
+            Dictionary<bool, string> dic = new Dictionary<bool, string>();
             try
             {
-                bool ret = false;
-                string msg = string.Empty;
-                Dictionary<bool, string> dic = new Dictionary<bool, string>();
-
                 if (_SelectedCourse == null)
                 {
                     msg = "コースが選択されていません。";
@@ -105,33 +106,41 @@ namespace Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                ret = false;
+                msg = ex.Message;
+                dic.Add(ret, msg);
+                return dic;
             }
         }
 
         internal async Task<Dictionary<bool, string>> Update()
         {
+            bool ret = false;
+            string msg = string.Empty;
+            Dictionary<bool, string> dic = new Dictionary<bool, string>();
             try
             {
-                bool ret = false;
-                string msg = string.Empty;
-                Dictionary<bool, string> dic = new Dictionary<bool, string>();
-
                 if (_SelectedCourse == null)
                 {
                     msg = "コースを選択してください。";
                 }
                 else
                 {
-                    ret = await req.UpdateCourseMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateCourseMaster, _CourseInfo);
-
-                    if (ret)
+                    if (_CourseInfo == null)
                     {
-                        msg = "コースマスタの更新が完了しました。";
+                        msg = "更新対象が選択されていません。コースの検索を行ってください。";
                     }
                     else
                     {
-                        msg = "コースマスタの更新に失敗しました。";
+                        ret = await req.UpdateCourseMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateCourseMaster, _CourseInfo);
+                        if (ret)
+                        {
+                            msg = "コースマスタの更新が完了しました。";
+                        }
+                        else
+                        {
+                            msg = "コースマスタの更新に失敗しました。";
+                        }
                     }
                 }
 
@@ -140,7 +149,10 @@ namespace Services
             }
             catch (Exception ex)
             {
-                throw ex;
+                ret = false;
+                msg = ex.Message;
+                dic.Add(ret, msg);
+                return dic;
             }
         }
 

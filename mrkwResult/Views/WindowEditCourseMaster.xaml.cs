@@ -47,11 +47,10 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
-        private async void SelectionChanged_SearchCOURSE_CD(object sender, SelectionChangedEventArgs e)
+        private void SelectionChanged_SearchCOURSE_CD(object sender, SelectionChangedEventArgs e)
         {
             try
             {
@@ -63,7 +62,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -80,7 +78,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -110,7 +107,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
     }

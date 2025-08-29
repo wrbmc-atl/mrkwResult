@@ -35,7 +35,7 @@ namespace Views
             }
             catch (Exception ex)
             {
-                throw ex;
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
 
@@ -51,7 +51,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -68,7 +67,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -85,7 +83,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -102,7 +99,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -119,7 +115,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -149,7 +144,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -165,7 +159,6 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
 
@@ -181,9 +174,7 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-                throw ex;
             }
         }
-
     }
 }
