@@ -134,5 +134,19 @@ namespace mrkwResult.Models.DBInfo
             get { return _STAGE_TYP; }
             set { _STAGE_TYP = value; NotifyPropertyChanged(); }
         }
+
+        private string _REVERSE_FLG_DISP = string.Empty;
+        public string REVERSE_FLG_DISP
+        {
+            get { return _REVERSE_FLG_DISP; }
+            set { _REVERSE_FLG_DISP = value; NotifyPropertyChanged(); }
+        }
+
+        private string _STAGE_TYP_DISP = string.Empty;
+        public string STAGE_TYP_DISP
+        {
+            get { return _STAGE_TYP_DISP; }
+            set { _STAGE_TYP_DISP = value; NotifyPropertyChanged(); }
+        }
     }
 }

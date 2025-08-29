@@ -78,6 +78,29 @@ namespace ViewModels
             set { _JissekiInfo = value; NotifyPropertyChanged(); }
         }
 
+        // --- 画像の存在有無をBindingするための新しいプロパティ ---
+        private bool _isPic1Available;
+        public bool IsPic1Available
+        {
+            get { return _isPic1Available; }
+            set { _isPic1Available = value; NotifyPropertyChanged(); }
+        }
+
+        private bool _isPic2Available;
+        public bool IsPic2Available
+        {
+            get { return _isPic2Available; }
+            set { _isPic2Available = value; NotifyPropertyChanged(); }
+        }
+
+        private bool _isPic3Available;
+        public bool IsPic3Available
+        {
+            get { return _isPic3Available; }
+            set { _isPic3Available = value; NotifyPropertyChanged(); }
+        }
+        // -----------------------------------------------------
+
         #endregion
 
         public async Task<bool> Init()
@@ -111,6 +134,11 @@ namespace ViewModels
             }
         }
 
+        /// <summary>
+        /// レース情報とコース情報を検索する。
+        /// 検索成功後、関連する画像ファイルの存在を確認する。
+        /// </summary>
+        /// <returns></returns>
         internal async Task<Dictionary<bool, string>> Search()
         {
             bool ret = false;
@@ -137,6 +165,12 @@ namespace ViewModels
                     }
                     else
                     {
+                        // 検索結果取得成功後、画像ファイルの存在を確認
+                        string projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
+                        IsPic1Available = !string.IsNullOrEmpty(ResultInfo?.SHTC_PIC1) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo?.SHTC_PIC1));
+                        IsPic2Available = !string.IsNullOrEmpty(ResultInfo?.SHTC_PIC2) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo?.SHTC_PIC2));
+                        IsPic3Available = !string.IsNullOrEmpty(CourseInfo?.SHTC_PIC) && File.Exists(Path.Combine(projectDirectory, "Images", CourseInfo?.SHTC_PIC));
+
                         ret = true;
                     }
                 }
@@ -234,6 +268,7 @@ namespace ViewModels
 
             if (string.IsNullOrEmpty(imageFileName))
             {
+                // ここは画像ファイル名が存在しない場合なので、画像の存在有無チェックとは別に扱う
                 dic.Add(true, string.Empty);
                 return dic;
             }
@@ -246,7 +281,7 @@ namespace ViewModels
                 try
                 {
                     var imageViewer = new WindowImageViewer(fullPath);
-                    imageViewer.Show();
+                    imageViewer.ShowDialog();
                     dic.Add(true, string.Empty);
                 }
                 catch (Exception ex)

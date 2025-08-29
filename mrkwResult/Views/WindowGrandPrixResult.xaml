@@ -15,78 +15,128 @@
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown">
+    <Window.Background>
+        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+            <GradientStop Color="#F0F4F8" Offset="0"/>
+            <GradientStop Color="#E0E8F0" Offset="1"/>
+        </LinearGradientBrush>
+    </Window.Background>
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
         <converters:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
+        <!-- 画像表示ボタン用のスタイルを追加 -->
+        <Style x:Key="ImageButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
+                    <Setter Property="Background" Value="#3399FF"/>
+                    <Setter Property="ToolTip" Value="画像があります"/>
+                </DataTrigger>
+                <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
+                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="ToolTip" Value="画像はありません"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
         <Style TargetType="TextBlock">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="TextBox">
             <Style.Triggers>
                 <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
+                    <Setter Property="Background" Value="#E6F2FF"/>
+                    <Setter Property="BorderBrush" Value="#3399FF"/>
                 </Trigger>
             </Style.Triggers>
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="Height" Value="27"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="5,0,0,0"/>
         </Style>
         <Style TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="27"/>
+            <Setter Property="Height" Value="27"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Background" Value="#3399FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2E6DA4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#286090"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#204d74"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
         <Style TargetType="ComboBox">
-            <Setter Property="Height" Value="30"/>
-            <Setter Property="Width" Value="320"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="27"/>
+            <Setter Property="Width" Value="300"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
         <Style TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="RadioButton">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="#333333"/>
         </Style>
         <Style TargetType="DatePicker">
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
         </Style>
         <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#444444"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Padding" Value="10"/>
         </Style>
         <Style TargetType="StackPanel">
             <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="DataGrid">
-            <Setter Property="Height" Value="30"/>
+            <Setter Property="FontSize" Value="27"/>
             <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontSize" Value="14"/>
             <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="BorderBrush" Value="#CCCCCC"/>
+            <Setter Property="BorderThickness" Value="1"/>
+        </Style>
+        <Style TargetType="iconPacks:PackIconMaterial">
+            <Setter Property="VerticalAlignment" Value="Center"/>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="4*"/>
-            <RowDefinition Height="22*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="19*"/>
             <RowDefinition Height="7*"/>
         </Grid.RowDefinitions>
         <GroupBox Grid.Row="0" Header="検索" Margin="5">
@@ -105,12 +155,21 @@
                               ItemsSource="{Binding obcGoalCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                               SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP"/>
                     <TextBlock Text="" Width="40"/>
-                    <Button Content="検索" Click="Click_Search" HorizontalAlignment="Right"/>
+                    <Button Click="Click_Search">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <iconPacks:PackIconMaterial Kind="Magnify" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBlock Text="検索" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                        </Grid>
+                    </Button>
                 </StackPanel>
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1" Header="情報" Margin="5">
-            <Grid Margin="5">
+            <Grid Margin="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
@@ -135,16 +194,17 @@
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="出発地:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.START_NM}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
                 <TextBlock Text="目的地:" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.GOAL_NM}" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
-                <TextBlock Text="ステージ種別:" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.STAGE_TYP}" Grid.Row="0" Grid.Column="7" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
-                <TextBlock Text="逆走:" Grid.Row="0" Grid.Column="9" VerticalAlignment="Center" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.REVERSE_FLG}" Grid.Row="0" Grid.Column="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <TextBlock Text="レース種別:" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.STAGE_TYP_DISP}" Grid.Row="0" Grid.Column="7" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <TextBlock Text="向き:" Grid.Row="0" Grid.Column="9" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.REVERSE_FLG_DISP}" Grid.Row="0" Grid.Column="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
 
                 <TextBlock Text="アイテム:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.ITEM}" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
@@ -153,22 +213,48 @@
                 <TextBox Text="{Binding CourseInfo.ITEM}" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
 
                 <TextBlock Text="ショトカ1:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.SHTC1}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
-                <Button Content="画像1の表示" Grid.Row="3" Grid.Column="12" Click="Click_pic1" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.SHTC1}" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Click="Click_pic1" Grid.Row="3" Grid.Column="13" Style="{StaticResource ImageButton}" Tag="{Binding IsPic1Available}">
+                    <Grid Height="22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <iconPacks:PackIconMaterial Kind="Image" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="画像1の表示" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                    </Grid>
+                </Button>
 
                 <TextBlock Text="ショトカ2:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.SHTC2}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
-                <Button Content="画像2の表示" Grid.Row="4" Grid.Column="12" Click="Click_pic2" Margin="0,5"/>
-
+                <TextBox Text="{Binding ResultInfo.SHTC2}" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Click="Click_pic2" Grid.Row="4" Grid.Column="13" Style="{StaticResource ImageButton}" Tag="{Binding IsPic2Available}">
+                    <Grid Height="22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <iconPacks:PackIconMaterial Kind="Image" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="画像2の表示" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                    </Grid>
+                </Button>
                 <TextBlock Text="ショトカ（コース）:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
-                <TextBox Text="{Binding CourseInfo.SHTC}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="10" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
-                <Button Content="画像3の表示" Grid.Row="5" Grid.Column="12" Click="Click_pic3" Margin="0,5"/>
+                <TextBox Text="{Binding CourseInfo.SHTC}" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="11" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
+                <Button Click="Click_pic3" Grid.Row="5" Grid.Column="13" Style="{StaticResource ImageButton}" Tag="{Binding IsPic3Available}">
+                    <Grid Height="22">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <iconPacks:PackIconMaterial Kind="Image" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                        <TextBlock Text="画像3の表示" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                    </Grid>
+                </Button>
 
                 <TextBlock Text="備考:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.REMARK}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="60"/>
+                <TextBox Text="{Binding ResultInfo.REMARK}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="45"/>
 
                 <TextBlock Text="備考（コース）:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBox Text="{Binding CourseInfo.REMARK}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="60"/>
+                <TextBox Text="{Binding CourseInfo.REMARK}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="45"/>
             </Grid>
         </GroupBox>
 
@@ -186,29 +272,36 @@
                     <TextBlock Text="レース区分:" Width="100"/>
                     <TextBox Text="{Binding JissekiInfo.RACE_KBN}" Width="100"/>
                     <TextBlock Text="" Width="20"/>
-                    <TextBlock Text="日付:" Width="45" Margin="20,0,0,0"/>
+                    <TextBlock Text="日付:" Width="45" Margin="5,0,0,0"/>
                     <DatePicker SelectedDate="{Binding JissekiInfo.RACE_DATE, StringFormat='{}{0:yyyy/MM/dd}'}" Width="150" />
                     <TextBlock Text="" Width="20"/>
-                    <TextBlock Text="順位:" Width="45" Margin="20,0,0,0"/>
+                    <TextBlock Text="順位:" Width="45" Margin="5,0,0,0"/>
                     <TextBox Text="{Binding JissekiInfo.RANK}" Width="60"/>
-                    <TextBlock Text="参加人数:" Width="80" Margin="20,0,0,0"/>
+                    <TextBlock Text="参加人数:" Width="80" Margin="5,0,0,0"/>
                     <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60"/>
                     <TextBlock Text="" Width="20"/>
-                    <TextBlock Text="終了時レート:" Width="120" Margin="20,0,0,0"/>
+                    <TextBlock Text="終了時レート:" Width="120" Margin="5,0,0,0"/>
                     <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80"/>
                     <TextBlock Text="" Width="20"/>
-                    <TextBlock Text="逆走:" Width="60" Margin="20,0,0,0"/>
-                    <CheckBox IsChecked="{Binding JissekiInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
+                    <CheckBox Content="逆走" IsChecked="{Binding JissekiInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
                     <TextBlock Text="" Width="20"/>
-                    <TextBlock Text="ミラー:" Width="60"/>
-                    <CheckBox IsChecked="{Binding JissekiInfo.MIRROR_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
+                    <CheckBox Content="ミラー" IsChecked="{Binding JissekiInfo.MIRROR_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
                     <TextBlock Text="メモ:" Width="120" VerticalAlignment="Top"/>
                     <TextBox Text="{Binding JissekiInfo.REMARK}" Width="800" AcceptsReturn="True"
-                                 TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
+                             TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"/>
                     <TextBlock Text="" Width="40"/>
-                    <Button Content="登録" Click="Click_Register" VerticalAlignment="Bottom"/>
+                    <Button Click="Click_Register">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <iconPacks:PackIconMaterial Kind="DatabasePlus" Grid.Column="0" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                            <TextBlock Text="登録" Grid.Column="1" VerticalAlignment="Center" Foreground="White"/>
+                        </Grid>
+                    </Button>
                 </StackPanel>
             </Grid>
         </GroupBox>

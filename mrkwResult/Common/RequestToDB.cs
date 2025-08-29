@@ -113,6 +113,8 @@ namespace mrkwResult.Common
                                 stageInfo.SHTC_PIC2 = reader.IsDBNull(reader.GetOrdinal("SHTC_PIC2")) ? string.Empty : reader.GetString(reader.GetOrdinal("SHTC_PIC2"));
                                 stageInfo.REMARK = reader.IsDBNull(reader.GetOrdinal("REMARK")) ? string.Empty : reader.GetString(reader.GetOrdinal("REMARK"));
                                 stageInfo.STAGE_TYP = reader.IsDBNull(reader.GetOrdinal("STAGE_TYP")) ? string.Empty : reader.GetString(reader.GetOrdinal("STAGE_TYP"));
+                                stageInfo.REVERSE_FLG_DISP = reader.IsDBNull(reader.GetOrdinal("REVERSE_FLG_DISP")) ? string.Empty : reader.GetString(reader.GetOrdinal("REVERSE_FLG_DISP"));
+                                stageInfo.STAGE_TYP_DISP = reader.IsDBNull(reader.GetOrdinal("STAGE_TYP_DISP")) ? string.Empty : reader.GetString(reader.GetOrdinal("STAGE_TYP_DISP"));
                             }
                             else
                             {

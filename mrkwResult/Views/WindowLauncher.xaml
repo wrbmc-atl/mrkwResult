@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         xmlns:local="clr-namespace:Views"
+        xmlns:viewmodels="clr-namespace:ViewModels"
+        xmlns:converters="clr-namespace:mrkwResult.Common"  
         mc:Ignorable="d"
         FontSize="30"
         FontFamily="07やさしさゴシック"
