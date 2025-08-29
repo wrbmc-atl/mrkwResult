@@ -24,6 +24,7 @@ namespace ViewModels
             req = new RequestToDB();
             JissekiInfo = new T_RACEJSSK();
             JissekiInfo.RACE_DATE = DateTime.Today;
+            JissekiInfo.RACE_KBN = "GRN";
         }
 
         #region プロパティ

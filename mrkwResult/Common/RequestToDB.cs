@@ -157,8 +157,8 @@ namespace mrkwResult.Common
                         cmd.Parameters.Add("P_START_CD", OracleDbType.Varchar2, racejssk.START_CD, ParameterDirection.Input);
                         cmd.Parameters.Add("P_GOAL_CD", OracleDbType.Varchar2, racejssk.GOAL_CD, ParameterDirection.Input);
                         cmd.Parameters.Add("P_STAGE_TYP", OracleDbType.Varchar2, racejssk.STAGE_TYP, ParameterDirection.Input);
-                        cmd.Parameters.Add("P_REVERSE_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.REVERSE_FLG) ? (object)DBNull.Value : racejssk.REVERSE_FLG, ParameterDirection.Input);
-                        cmd.Parameters.Add("P_MIRROR_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.MIRROR_FLG) ? (object)DBNull.Value : racejssk.MIRROR_FLG, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_REVERSE_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.REVERSE_FLG) ? "0" : racejssk.REVERSE_FLG, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_MIRROR_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.MIRROR_FLG) ? "0" : racejssk.REVERSE_FLG, ParameterDirection.Input);
                         cmd.Parameters.Add("P_RANK", OracleDbType.Varchar2, racejssk.RANK?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
                         cmd.Parameters.Add("P_HEADCOUNT", OracleDbType.Varchar2, racejssk.HEADCOUNT?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
                         cmd.Parameters.Add("P_RATE_END", OracleDbType.Varchar2, racejssk.RATE_END?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
