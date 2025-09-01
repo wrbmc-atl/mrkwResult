@@ -32,6 +32,7 @@ namespace Views
                 cmbStartCourse.Focus();
                 cmbStartCourse.SelectedIndex = 0;
                 cmbGoalCourse.SelectedIndex = 0;
+                cmbRaceKbn.SelectedIndex = 0;
             }
             catch (Exception ex)
             {

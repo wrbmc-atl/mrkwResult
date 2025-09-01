@@ -102,6 +102,20 @@ namespace ViewModels
         }
         // -----------------------------------------------------
 
+        private ObservableCollection<M_CODE> _obcRaceKbnList = new ObservableCollection<M_CODE>();
+        public ObservableCollection<M_CODE> obcRaceKbnList
+        {
+            get { return _obcRaceKbnList; }
+            set { _obcRaceKbnList = value; NotifyPropertyChanged(); }
+        }
+
+        private M_CODE? _SelectedRaceKbn;
+        public M_CODE? SelectedRaceKbn
+        {
+            get { return _SelectedRaceKbn; }
+            set { _SelectedRaceKbn = value; NotifyPropertyChanged(); }
+        }
+
         #endregion
 
         public async Task<bool> Init()
@@ -126,6 +140,7 @@ namespace ViewModels
                 bool ret = false;
                 obcStartCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
                 obcGoalCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcRaceKbnList = await req.GetCodeListAsync(ComIns.ConnStr, ConstItems.PKG_GetCode1List, "RACE_KBN", false);
                 ret = true;
                 return ret;
             }
