@@ -19,6 +19,9 @@ namespace Models
         public const string PKG_GetCourseInfo = "PKG_GRN_004.OPEN_CURSOR";
         public const string PKG_UpdateCourseMaster = "PKG_GRN_005.OPEN_CURSOR";
         public const string PKG_UpdateRaceMaster = "PKG_GRN_006.OPEN_CURSOR";
+        public const string PKG_GetRacejsskInfo = "PKG_GRN_007.OPEN_CURSOR";
+        public const string PKG_GetCode1List = "PKG_GRN_008.OPEN_CURSOR";
+        public const string PKG_GetCode2List = "PKG_GRN_009.OPEN_CURSOR";
 
 
         // メッセージ
@@ -37,6 +40,7 @@ namespace Models
         public enum WindowType
         {
             GrandPrix,
+            GrandPrixView,
             EditCourse,
             EditRace
         }

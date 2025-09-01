@@ -91,10 +91,10 @@
                     <Button Grid.Row="0" Margin="5" x:Name="btnGrandPrixResult"
                             Content="グランプリリザルト" Click="btnGrandPrixResult_Click">
                     </Button>
-                    <!--<Button Grid.Row="1" Margin="5" x:Name="btnSurvivalResult"
-                            Content="サバイバルリザルト" Click="btnSurvivalResult_Click">
+                    <Button Grid.Row="1" Margin="5" x:Name="btnGrandPrixResultHistory"
+                            Content="グランプリリザルト実績照会" Click="btnGrandPrixResultHistory_Click">
                     </Button>
-                    <Button Grid.Row="2" Margin="5" x:Name="btnVersusResult"
+                    <!--<Button Grid.Row="2" Margin="5" x:Name="btnVersusResult"
                             Content="VSレースリザルト" Click="btnVersusResult_Click">
                     </Button>
                     <Button Grid.Row="3" Margin="5" x:Name="btnEventResult"

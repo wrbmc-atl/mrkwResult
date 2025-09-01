@@ -67,7 +67,7 @@ namespace Services
             try
             {
                 bool ret = false;
-                obcCourse = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList);
+                obcCourse = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
                 ret = true;
                 return ret;
             }

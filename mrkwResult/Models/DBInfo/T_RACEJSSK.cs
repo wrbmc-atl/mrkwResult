@@ -128,5 +128,48 @@ namespace mrkwResult.Models.DBInfo
             get { return _SKJ_FLG; }
             set { _SKJ_FLG = value; NotifyPropertyChanged(); }
         }
+
+        private string _START_NM_DISP = string.Empty;
+        public string START_NM_DISP
+        {
+            get { return _START_NM_DISP; }
+            set { _START_NM_DISP = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _GOAL_NM_DISP = string.Empty;
+        public string GOAL_NM_DISP
+        {
+            get { return _GOAL_NM_DISP; }
+            set { _GOAL_NM_DISP = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _RACE_KBN_DISP = string.Empty;
+        public string RACE_KBN_DISP
+        {
+            get { return _RACE_KBN_DISP; }
+            set { _RACE_KBN_DISP = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _REVERSE_FLG_DISP = string.Empty;
+        public string REVERSE_FLG_DISP
+        {
+            get { return _REVERSE_FLG_DISP; }
+            set { _REVERSE_FLG_DISP = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _MIRROR_FLG_DISP = string.Empty;
+        public string MIRROR_FLG_DISP
+        {
+            get { return _MIRROR_FLG_DISP; }
+            set { _MIRROR_FLG_DISP = value; NotifyPropertyChanged(); }
+        }
+        
+        private string _STAGE_TYP_DISP = string.Empty;
+        public string STAGE_TYP_DISP
+        {
+            get { return _STAGE_TYP_DISP; }
+            set { _STAGE_TYP_DISP = value; NotifyPropertyChanged(); }
+        }
+
     }
 }

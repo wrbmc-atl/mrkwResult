@@ -47,6 +47,18 @@ namespace Views
             }
         }
 
+        private void btnGrandPrixResultHistory_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                vm.ShowNewDialog(ConstItems.WindowType.GrandPrixView);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+            }
+        }
+
         private void btnEditCourseMaster_Click(object sender, RoutedEventArgs e)
         {
             try

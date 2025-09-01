@@ -150,6 +150,10 @@ namespace ViewModels
                     WindowEditRaceMaster frm3 = new WindowEditRaceMaster(ComIns);
                     bool? result3 = frm3.ShowDialog();
                     break;
+                case ConstItems.WindowType.GrandPrixView:
+                    WindowGrandPrixResultHistory frm4 = new WindowGrandPrixResultHistory(ComIns);
+                    bool? result4 = frm4.ShowDialog();
+                    break;
                 default:
                     break;
             }
