@@ -10,7 +10,7 @@
         FontSize="20"
         FontFamily="07やさしさゴシック"
         Title="WindowGrandPrixResultHistory_実績見える化"
-        Height="600" Width="1200"
+        Height="660" Width="1260"
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded"
         PreviewKeyDown="Window_PreviewKeyDown">
@@ -21,105 +21,7 @@
             <GradientStop Color="#E0E8F0" Offset="1"/>
         </LinearGradientBrush>
     </Window.Background>
-
     <Window.Resources>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="Foreground" Value="#333333"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="#E6F2FF"/>
-                    <Setter Property="BorderBrush" Value="#3399FF"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="Height" Value="27"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Padding" Value="5,0,0,0"/>
-        </Style>
-        <Style TargetType="Button">
-            <Setter Property="FontSize" Value="27"/>
-            <Setter Property="Height" Value="27"/>
-            <Setter Property="Width" Value="120"/>
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Background" Value="#3399FF"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#2E6DA4"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type ButtonBase}">
-                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#286090"/>
-                            </Trigger>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#204d74"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-        <Style TargetType="ComboBox">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="#333333"/>
-        </Style>
-        <Style TargetType="RadioButton">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="Foreground" Value="#333333"/>
-        </Style>
-        <Style TargetType="DatePicker">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-        </Style>
-        <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Foreground" Value="#444444"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="Background" Value="White"/>
-            <Setter Property="Padding" Value="10"/>
-        </Style>
-        <Style TargetType="StackPanel">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="DataGridStyle" TargetType="DataGrid">
-            <Setter Property="FontSize" Value="14"/>
-            <Setter Property="IsReadOnly" Value="True"/>
-            <Setter Property="Focusable" Value="False"/>
-            <Setter Property="BorderBrush" Value="#CCCCCC"/>
-            <Setter Property="BorderThickness" Value="1"/>
-            <Setter Property="AlternatingRowBackground" Value="#E5F2F5"/>
-            <Setter Property="CanUserAddRows" Value="False"/>
-            <Setter Property="AutoGenerateColumns" Value="False"/>
-            <Setter Property="SelectionMode" Value="Single"/>
-            <Setter Property="SelectionUnit" Value="FullRow"/>
-        </Style>
-        <Style TargetType="iconPacks:PackIconMaterial">
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
     </Window.Resources>
 
     <Grid Margin="10">
@@ -151,12 +53,12 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Grid.Row="0" Grid.Column="0" Text="レース区分:"/>
-                    <ComboBox x:Name="cmbRaceKbn" Grid.Row="0" Grid.Column="1" 
+                    <ComboBox x:Name="cmbRaceKbn" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                               ItemsSource="{Binding obcRaceKbnList}" 
                               SelectedItem="{Binding SelectedRaceKbn}" DisplayMemberPath="STR1"/>
 
                     <TextBlock Grid.Row="0" Grid.Column="4" Text="ステージ区分:"/>
-                    <ComboBox x:Name="cmbStageType" Grid.Row="0" Grid.Column="5" 
+                    <ComboBox x:Name="cmbStageType" Grid.Row="0" Grid.Column="5" Grid.ColumnSpan="2"
                               ItemsSource="{Binding obcStageTypeList}" 
                               SelectedItem="{Binding SelectedStageType}" DisplayMemberPath="STR1"/>
 
@@ -171,10 +73,11 @@
                               SelectedItem="{Binding SelectedGoalCourse}" DisplayMemberPath="COURSE_NM_DISP"/>
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="レース日:"/>
-                    <DatePicker Grid.Row="2" Grid.Column="1" SelectedDate="{Binding StartDate}"/>
-
-                    <TextBlock Grid.Row="2" Grid.Column="2" Text="～"/>
-                    <DatePicker Grid.Row="2" Grid.Column="3" SelectedDate="{Binding EndDate}"/>
+                    <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
+                        <DatePicker SelectedDate="{Binding StartDate}"/>
+                        <TextBlock Text="～"/>
+                        <DatePicker SelectedDate="{Binding EndDate}"/>
+                    </StackPanel>
                 </Grid>
 
                 <Button Click="Click_Search" Grid.Row="3" Grid.Column="4" HorizontalAlignment="Right">
@@ -190,7 +93,7 @@
             </StackPanel>
         </GroupBox>
         <!-- 結果一覧エリア -->
-        <GroupBox Grid.Row="1" Header="一覧" Margin="5" Padding="5">
+        <GroupBox Grid.Row="1" Header="一覧" Margin="5">
         <DataGrid ItemsSource="{Binding obcRaceJsskResultList}"
                   Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
