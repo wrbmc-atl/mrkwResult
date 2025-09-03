@@ -251,10 +251,10 @@
                 </Button>
 
                 <TextBlock Text="備考:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBox Text="{Binding ResultInfo.REMARK}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="45"/>
+                <TextBox Text="{Binding ResultInfo.REMARK}" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="True" Margin="0,5" MinHeight="45"/>
 
                 <TextBlock Text="備考（コース）:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Top" Margin="0,5"/>
-                <TextBox Text="{Binding CourseInfo.REMARK}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="False" Margin="0,5" MinHeight="45"/>
+                <TextBox Text="{Binding CourseInfo.REMARK}" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="11" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" IsReadOnly="True" Focusable="True" Margin="0,5" MinHeight="45"/>
             </Grid>
         </GroupBox>
 
