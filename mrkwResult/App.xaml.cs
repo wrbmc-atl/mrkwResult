@@ -1,20 +1,23 @@
 ﻿using Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace mrkwResult
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
+        private void OnComboBoxKeyDown(object sender, KeyEventArgs e)
+        {
+            var comboBox = sender as ComboBox;
+            if (comboBox == null) return;
+
+            // Prevent left and right arrow keys from changing the selected item
+            if (e.Key == Key.Left || e.Key == Key.Right)
+            {
+                e.Handled = true;
+            }
+        }
 
         #region 共通イベントハンドラ
         private void TextBox_GotFocus(object sender, RoutedEventArgs e)
@@ -31,5 +34,4 @@ namespace mrkwResult
         }
         #endregion
     }
-
 }
