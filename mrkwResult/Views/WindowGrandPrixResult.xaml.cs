@@ -177,5 +177,14 @@ namespace Views
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
             }
         }
+
+        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
+        {
+            if (!CommonEventHandler.IsTextAllowed_NaturalNumber(e.Text))
+            {
+                e.Handled = true;
+            }
+        }
+
     }
 }

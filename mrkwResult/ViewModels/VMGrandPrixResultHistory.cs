@@ -102,11 +102,23 @@ namespace ViewModels
             set { _SelectedStageType = value; NotifyPropertyChanged(); }
         }
 
+        private long _raceJsskCount = 0;
+        public long raceJsskCount
+        {
+            get { return _raceJsskCount; }
+            set { _raceJsskCount = value; NotifyPropertyChanged(); }
+        }
+
         private ObservableCollection<T_RACEJSSK> _obcRaceJsskResultList;
         public ObservableCollection<T_RACEJSSK> obcRaceJsskResultList
         {
             get { return _obcRaceJsskResultList; }
-            set { _obcRaceJsskResultList = value; NotifyPropertyChanged(); }
+            set 
+            { 
+                _obcRaceJsskResultList = value; 
+                NotifyPropertyChanged();
+                raceJsskCount = obcRaceJsskResultList.Count;
+            }
         }
 
         #endregion

@@ -15,6 +15,19 @@ namespace Models
 {
     public static class CommonEventHandler
     {
+
+        public static bool IsTextAllowed_NaturalNumber(string text)
+        {
+            foreach (char c in text)
+            {
+                if (!char.IsDigit(c))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         public static long NumericOperation(KeyEventArgs e, long ret, bool enableLR, long unitVal, long? minVal, long? maxVal)
         {
             // 矢印キー以外はそのまま返す

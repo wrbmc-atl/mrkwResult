@@ -24,17 +24,43 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
         <converters:BooleanToCharConverter x:Key="BooleanToCharConverter"/>
-        <!-- 画像表示ボタン用のスタイルを追加 -->
         <Style x:Key="ImageButton" TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
             <Style.Triggers>
+                <!-- 画像がある場合の通常時の背景色 -->
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True">
                     <Setter Property="Background" Value="#3399FF"/>
                     <Setter Property="ToolTip" Value="画像があります"/>
                 </DataTrigger>
+                <!-- 画像がない場合の通常時の背景色 -->
                 <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False">
                     <Setter Property="Background" Value="LightGray"/>
                     <Setter Property="ToolTip" Value="画像はありません"/>
                 </DataTrigger>
+                <!-- マウスオーバー時の共通背景色 -->
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#E5F2FF"/>
+                </Trigger>
+                <!-- フォーカス時の共通スタイル -->
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="BorderBrush" Value="Black"/>
+                    <Setter Property="BorderThickness" Value="1"/>
+                </Trigger>
+                <!-- 画像がある場合のフォーカス時の背景色 -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsKeyboardFocused}" Value="True"/>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="True"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="#1C86EE"/>
+                </MultiDataTrigger>
+                <!-- 画像がない場合のフォーカス時の背景色 -->
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=IsKeyboardFocused}" Value="True"/>
+                        <Condition Binding="{Binding RelativeSource={RelativeSource Self}, Path=Tag}" Value="False"/>
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Background" Value="#A0A0A0"/>
+                </MultiDataTrigger>
             </Style.Triggers>
         </Style>
     </Window.Resources>
@@ -175,10 +201,8 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
-                    <!--<TextBlock Text="レース区分:" Width="100"/>
-                    <TextBox Text="{Binding JissekiInfo.RACE_KBN}" Width="100"/>-->
                     <TextBlock Text="レース区分:" Width="100"/>
-                    <ComboBox x:Name="cmbRaceKbn" Width="120"
+                    <ComboBox x:Name="cmbRaceKbn" Width="140"
                               ItemsSource="{Binding obcRaceKbnList}" 
                               SelectedItem="{Binding SelectedRaceKbn}" DisplayMemberPath="STR1"/>
 
@@ -187,15 +211,13 @@
                     <DatePicker SelectedDate="{Binding JissekiInfo.RACE_DATE, StringFormat='{}{0:yyyy/MM/dd}'}" Width="150" />
                     <TextBlock Text="" Width="20"/>
                     <TextBlock Text="参加人数:" Width="80" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60"/>
+                    <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="順位:" Width="45" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.RANK}" Width="60"/>
+                    <TextBox Text="{Binding JissekiInfo.RANK}" Width="60" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="" Width="20"/>
                     <TextBlock Text="終了時レート:" Width="120" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80"/>
+                    <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="" Width="20"/>
-                    <!--<CheckBox Content="逆走" IsChecked="{Binding JissekiInfo.REVERSE_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
-                    <TextBlock Text="" Width="20"/>-->
                     <CheckBox Content="ミラー" IsChecked="{Binding JissekiInfo.MIRROR_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
                 </StackPanel>
                 <StackPanel Grid.Row="1" Grid.Column="0" Orientation="Horizontal" Margin="0,5,0,5">
