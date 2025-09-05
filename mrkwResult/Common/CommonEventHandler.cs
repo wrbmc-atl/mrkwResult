@@ -15,19 +15,83 @@ namespace Models
 {
     public static class CommonEventHandler
     {
-
-        public static bool IsTextAllowed_NaturalNumber(string text)
+        /// <summary>
+        /// 指定されたテキストと新規入力文字を結合した文字列が、許可されたフォーマットの数値であるかをチェックします。
+        /// </summary>
+        /// <param name="currentText">検証する元の文字列。</param>
+        /// <param name="newText">新しく入力される文字。</param>
+        /// <param name="allowDecimal">小数点の入力を許可するかどうか。</param>
+        /// <param name="allowNegative">マイナス記号の入力を許可するかどうか。</param>
+        /// <param name="minValue">許容される最小値。nullの場合はチェックしません。</param>
+        /// <param name="maxValue">許容される最大値。nullの場合はチェックしません。</param>
+        /// <returns>有効な入力である場合はTrue、それ以外はFalse。</returns>
+        public static bool IsNumericTextAllowed(string currentText, string newText, bool allowDecimal, bool allowNegative, double? minValue, double? maxValue)
         {
-            foreach (char c in text)
+            // 新しい文字が空の場合は許可
+            if (string.IsNullOrEmpty(newText))
+            {
+                return true;
+            }
+
+            // 入力後の文字列をシミュレート
+            string prospectiveText = currentText + newText;
+
+            // 文字列が空の場合は許可する（Deleteキーなどに対応）
+            if (string.IsNullOrEmpty(prospectiveText))
+            {
+                return true;
+            }
+
+            // 入力された文字のチェック
+            foreach (char c in prospectiveText)
             {
                 if (!char.IsDigit(c))
                 {
-                    return false;
+                    if (allowDecimal && c == '.')
+                    {
+                        // 小数点を許可し、かつ最初の1つ目の小数点であることを確認
+                        if (prospectiveText.Count(ch => ch == '.') > 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else if (allowNegative && c == '-')
+                    {
+                        // マイナス記号を許可し、かつ文字列の先頭にあることを確認
+                        if (prospectiveText.IndexOf('-') != 0 || prospectiveText.Count(ch => ch == '-') > 1)
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
             }
-            return true;
-        }
 
+            // 全体が有効な数値としてパースできるかチェック
+            if (double.TryParse(prospectiveText, out double value))
+            {
+                // 最小値と最大値のチェック
+                if (minValue.HasValue && value < minValue.Value)
+                {
+                    return false;
+                }
+                if (maxValue.HasValue && value > maxValue.Value)
+                {
+                    return false;
+                }
+                return true;
+            }
+            // パースできないが、マイナス記号や小数点だけの途中入力は許可
+            else if (prospectiveText == "-" || (allowDecimal && prospectiveText == "."))
+            {
+                return true;
+            }
+
+            return false;
+        }
         public static long NumericOperation(KeyEventArgs e, long ret, bool enableLR, long unitVal, long? minVal, long? maxVal)
         {
             // 矢印キー以外はそのまま返す

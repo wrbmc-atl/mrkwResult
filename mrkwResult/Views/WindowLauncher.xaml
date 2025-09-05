@@ -3,10 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+        xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks" 
         xmlns:local="clr-namespace:Views"
         xmlns:viewmodels="clr-namespace:ViewModels"
-        xmlns:converters="clr-namespace:mrkwResult.Common"
+        xmlns:converters="clr-namespace:mrkwResult.Common"  
         mc:Ignorable="d"
         FontSize="30"
         FontFamily="07やさしさゴシック"
@@ -14,60 +14,36 @@
         WindowStartupLocation="CenterScreen"
         Loaded="Window_Loaded">
     <Window.Resources>
-        <BooleanToVisibilityConverter x:Key="BooleanToVisiblityConverter"/>
-        <Style TargetType="TextBlock">
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="22"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
         <Style TargetType="Button">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Width" Value="270"/>
+            <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style x:Key="FocusedComboBoxStyle" TargetType="ComboBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocusWithin" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <Style TargetType="CheckBox">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="VerticalAlignment" Value="Center"/>
-        </Style>
-        <Style TargetType="RadioButton">
-            <Style.Triggers>
-                <Trigger Property="IsKeyboardFocused" Value="True">
-                    <Setter Property="Background" Value="LightBlue"/>
-                </Trigger>
-            </Style.Triggers>
-            <Setter Property="FontSize" Value="20"/>
-        </Style>
-        <Style TargetType="GroupBox">
-            <Setter Property="FontSize" Value="26"/>
-        </Style>
-        <Style TargetType="DataGrid">
-            <Setter Property="FontSize" Value="20"/>
-            <Setter Property="IsReadOnly" Value="True"/>
+            <Setter Property="Background" Value="#F0F8FF"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#2E6DA4"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ButtonBase}">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#77286090"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#77204d74"/>
+                            </Trigger>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter Property="Background" Value="#7766B2FF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
     </Window.Resources>
     <Grid>
@@ -88,7 +64,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
-                    <Button Grid.Row="0" Margin="5" x:Name="btnGrandPrixResult" Foreground="White"
+                    <Button Grid.Row="0" Margin="5" x:Name="btnGrandPrixResult"
                             Content="グランプリリザルト" Click="btnGrandPrixResult_Click">
                     </Button>
                     <Button Grid.Row="1" Margin="5" x:Name="btnGrandPrixResultHistory"

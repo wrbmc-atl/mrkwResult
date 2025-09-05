@@ -5,15 +5,8 @@
              xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
              StartupUri="Views/WindowLauncher.xaml">
     <Application.Resources>
-        <!-- ドロップシャドウエフェクトをリソースとして定義 -->
-        <DropShadowEffect x:Key="DropShadowEffect"
-                          Color="#CCCCCC"
-                          Direction="270"
-                          ShadowDepth="2"
-                          BlurRadius="5"
-                          Opacity="0.5"/>
+        <DropShadowEffect x:Key="DropShadowEffect" Color="#FF3F3F3F" BlurRadius="5" ShadowDepth="2" Direction="270" Opacity="0.5" />
 
-        <!-- 各種コントロールの共通スタイルを定義 -->
         <Style TargetType="TextBlock">
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
@@ -21,7 +14,6 @@
             <Setter Property="Foreground" Value="#333333"/>
         </Style>
 
-        <!-- テキストボックスのスタイル：角を丸くします -->
         <Style TargetType="TextBox">
             <Setter Property="Height" Value="30"/>
             <Setter Property="FontSize" Value="16"/>
@@ -51,7 +43,6 @@
             </Setter>
         </Style>
 
-        <!-- ボタンのスタイル：角を丸くします -->
         <Style TargetType="Button">
             <Setter Property="Height" Value="30"/>
             <Setter Property="Width" Value="120"/>
@@ -129,7 +120,6 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                            <!-- BackgroundBorderにCornerRadiusを追加 -->
                             <Border x:Name="BackgroundBorder"
                             Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
@@ -167,7 +157,6 @@
                            IsOpen="{TemplateBinding IsDropDownOpen}"
                            PopupAnimation="{DynamicResource {x:Static SystemParameters.ComboBoxPopupAnimationKey}}"
                            Margin="0,1,0,0">
-                                <!-- DropDownBorderにCornerRadiusを追加 -->
                                 <Border x:Name="DropDownBorder"
                                 Background="#FFFFFF"
                                 BorderBrush="#E0E0E0"
@@ -235,7 +224,7 @@
         </Style>
 
         <Style TargetType="DatePicker">
-            <Setter Property="Width" Value="140"/>
+            <Setter Property="Width" Value="150"/>
             <Setter Property="FontSize" Value="16"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
             <Setter Property="BorderBrush" Value="#CCCCCC"/>
@@ -250,16 +239,18 @@
                                 CornerRadius="5">
                             <Grid>
                                 <DatePickerTextBox x:Name="PART_TextBox"
-                                                   Background="{TemplateBinding Background}"
-                                                   Padding="5,0,0,0"
-                                                   BorderThickness="0"
-                                                   VerticalContentAlignment="Center"/>
+                                                 Background="{TemplateBinding Background}"
+                                                 Padding="5,0,0,0"
+                                                 BorderThickness="0"
+                                                 VerticalContentAlignment="Center"
+                                                 IsTabStop="True"/>
+
                                 <Button x:Name="PART_Button"
                                         Style="{DynamicResource {x:Static ToolBar.ButtonStyleKey}}"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
-                                        Focusable="False"
-                                        IsTabStop="False">
+                                        IsTabStop="True"
+                                        Focusable="True">
                                     <Button.Template>
                                         <ControlTemplate TargetType="{x:Type Button}">
                                             <Border x:Name="border"
@@ -273,7 +264,7 @@
                                                                             Margin="0,0,5,0"
                                                                             Width="18"
                                                                             Height="18"
-                                                                            Foreground="{TemplateBinding Foreground}" />
+                                                                            Foreground="#3399FF" />
                                             </Border>
                                             <ControlTemplate.Triggers>
                                                 <Trigger Property="IsMouseOver" Value="True">
@@ -281,6 +272,10 @@
                                                 </Trigger>
                                                 <Trigger Property="IsPressed" Value="True">
                                                     <Setter TargetName="border" Property="Background" Value="#CCEBFF" />
+                                                </Trigger>
+                                                <Trigger Property="IsFocused" Value="True">
+                                                    <Setter TargetName="border" Property="BorderBrush" Value="#3399FF"/>
+                                                    <Setter TargetName="border" Property="BorderThickness" Value="1"/>
                                                 </Trigger>
                                             </ControlTemplate.Triggers>
                                         </ControlTemplate>
@@ -296,7 +291,13 @@
                                             BorderThickness="1"
                                             Background="{DynamicResource {x:Static SystemColors.WindowBrush}}"
                                             Effect="{StaticResource DropShadowEffect}">
-                                        <Calendar x:Name="PART_Calendar" />
+                                        <Calendar x:Name="PART_Calendar">
+                                            <Calendar.Style>
+                                                <Style TargetType="{x:Type Calendar}">
+                                                    <Setter Property="FontSize" Value="14"/>
+                                                </Style>
+                                            </Calendar.Style>
+                                        </Calendar>
                                     </Border>
                                 </Popup>
                             </Grid>
@@ -310,7 +311,7 @@
                 </Setter.Value>
             </Setter>
         </Style>
-
+        
         <Style TargetType="GroupBox">
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="#444444"/>

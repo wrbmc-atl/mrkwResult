@@ -4,6 +4,7 @@ using Models;
 using System.Windows;
 using System.Windows.Input;
 using mrkwResult.Models.DBInfo;
+using System.Windows.Controls;
 
 namespace Views
 {
@@ -148,43 +149,31 @@ namespace Views
             }
         }
 
-        private void SelectionChanged_StartCourse(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void HeadCount_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
-            try
-            {
-                if (e.AddedItems.Count > 0)
-                {
-                    vm.SelectedStartCourse = e.AddedItems[0] as M_COURSE;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-            }
-        }
-
-        private void SelectionChanged_GoalCourse(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
-        {
-            try
-            {
-                if (e.AddedItems.Count > 0)
-                {
-                    vm.SelectedGoalCourse = e.AddedItems[0] as M_COURSE;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-            }
-        }
-
-        private void TextBox_PreviewTextInput(object sender, System.Windows.Input.TextCompositionEventArgs e)
-        {
-            if (!CommonEventHandler.IsTextAllowed_NaturalNumber(e.Text))
+            var textBox = (TextBox)sender;
+            if (!CommonEventHandler.IsNumericTextAllowed(textBox.Text, e.Text, false, false, 1, 24))
             {
                 e.Handled = true;
             }
         }
 
+        private void Rank_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (!CommonEventHandler.IsNumericTextAllowed(textBox.Text, e.Text, false, false, 1, 24))
+            {
+                e.Handled = true;
+            }
+        }
+
+        private void RateEnd_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            var textBox = (TextBox)sender;
+            if (!CommonEventHandler.IsNumericTextAllowed(textBox.Text, e.Text, false, false, null, null))
+            {
+                e.Handled = true;
+            }
+        }
     }
 }

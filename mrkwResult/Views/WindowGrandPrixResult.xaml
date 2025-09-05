@@ -78,13 +78,13 @@
                 <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10,0,10,0">
                     <TextBlock Text="コース"/>
                     <TextBlock Text="" Width="20"/>
-                    <ComboBox x:Name="cmbStartCourse" SelectionChanged="SelectionChanged_StartCourse"
+                    <ComboBox x:Name="cmbStartCourse"
                               ItemsSource="{Binding obcStartCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP"/>
+                              SelectedItem="{Binding SelectedStartCourse}" DisplayMemberPath="COURSE_NM_DISP"/>
                     <TextBlock Text=" ≫ "/>
-                    <ComboBox x:Name="cmbGoalCourse" SelectionChanged="SelectionChanged_GoalCourse"
+                    <ComboBox x:Name="cmbGoalCourse"
                               ItemsSource="{Binding obcGoalCourseList, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                              SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP"/>
+                              SelectedItem="{Binding SelectedGoalCourse}" DisplayMemberPath="COURSE_NM_DISP"/>
                     <TextBlock Text="" Width="40"/>
                     <Button Click="Click_Search">
                         <Grid>
@@ -211,12 +211,12 @@
                     <DatePicker SelectedDate="{Binding JissekiInfo.RACE_DATE, StringFormat='{}{0:yyyy/MM/dd}'}" Width="150" />
                     <TextBlock Text="" Width="20"/>
                     <TextBlock Text="参加人数:" Width="80" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
+                    <TextBox Text="{Binding JissekiInfo.HEADCOUNT}" Width="60" PreviewTextInput="HeadCount_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="順位:" Width="45" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.RANK}" Width="60" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
+                    <TextBox Text="{Binding JissekiInfo.RANK}" Width="60" PreviewTextInput="Rank_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="" Width="20"/>
                     <TextBlock Text="終了時レート:" Width="120" Margin="5,0,0,0"/>
-                    <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80" PreviewTextInput="TextBox_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
+                    <TextBox Text="{Binding JissekiInfo.RATE_END}" Width="80" PreviewTextInput="RateEnd_PreviewTextInput" InputMethod.IsInputMethodEnabled="False"/>
                     <TextBlock Text="" Width="20"/>
                     <CheckBox Content="ミラー" IsChecked="{Binding JissekiInfo.MIRROR_FLG, Converter={StaticResource BooleanToCharConverter}}"/>
                 </StackPanel>

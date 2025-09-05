@@ -50,21 +50,6 @@ namespace Views
             }
         }
 
-        private void SelectionChanged_SearchCOURSE_CD(object sender, SelectionChangedEventArgs e)
-        {
-            try
-            {
-                if (e.AddedItems.Count > 0)
-                {
-                    vm.SelectedCourse = e.AddedItems[0] as M_COURSE;
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
-            }
-        }
-
         private async void Click_Search(object sender, RoutedEventArgs e)
         {
             try
@@ -83,7 +68,6 @@ namespace Views
 
         private async void UpdateButton_Click(object sender, RoutedEventArgs e)
         {
-            // 登録確認メッセージボックスを表示
             MessageBoxResult result = MessageBox.Show("登録しますか？", "確認", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.No)

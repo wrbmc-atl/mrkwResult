@@ -42,14 +42,14 @@
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock Text="スタート:" Grid.Column="0" VerticalAlignment="Center" Margin="5" Width="70"/>
-                <ComboBox x:Name="cmbStart_Search" Grid.Column="1" SelectionChanged="SelectionChanged_SearchSTART_CD"
+                <ComboBox x:Name="cmbStart_Search" Grid.Column="1"
                           ItemsSource="{Binding obcStartCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
+                          SelectedItem="{Binding SelectedStartCourse}" DisplayMemberPath="COURSE_NM_DISP">
                 </ComboBox>
                 <TextBlock Text="　ゴール:" Grid.Column="2" VerticalAlignment="Center" Margin="5" Width="70"/>
-                <ComboBox x:Name="cmbGoal_Search" Grid.Column="3" SelectionChanged="SelectionChanged_SearchGOAL_CD"
+                <ComboBox x:Name="cmbGoal_Search" Grid.Column="3"
                           ItemsSource="{Binding obcGoalCourse, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                          SelectedValuePath="COURSE_CD" DisplayMemberPath="COURSE_NM_DISP">
+                          SelectedItem="{Binding SelectedGoalCourse}" DisplayMemberPath="COURSE_NM_DISP">
                 </ComboBox>
                 <Button Click="Click_Search" Grid.Column="4" Margin="5">
                     <Grid>
