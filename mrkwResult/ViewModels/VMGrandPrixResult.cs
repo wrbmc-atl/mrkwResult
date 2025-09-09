@@ -25,6 +25,9 @@ namespace ViewModels
             JissekiInfo = new T_RACEJSSK();
             JissekiInfo.RACE_DATE = DateTime.Today;
             JissekiInfo.RACE_KBN = "GRN";
+            JissekiInfo.RANK = 0;
+            JissekiInfo.HEADCOUNT = 0;
+            JissekiInfo.RATE_END = 8000;
         }
 
         #region プロパティ
@@ -226,6 +229,9 @@ namespace ViewModels
                         _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
                         _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
                         _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
+                        _JissekiInfo.HEADCOUNT = _JissekiInfo.HEADCOUNT == 0 ? null : _JissekiInfo.HEADCOUNT;
+                        _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
+                        _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
 
                         ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
 
