@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Views.UserControls.DateUpDown"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:Views.UserControls"
+             xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+             mc:Ignorable="d"
+             d:DesignHeight="40" d:DesignWidth="150"
+             Name="dateUpDown">
+    <UserControl.Resources>
+        <!-- 日付を文字列に変換するためのコンバーター -->
+        <local:DateToStringConverter x:Key="dateToStringConverter"/>
+    </UserControl.Resources>
+
+    <Grid VerticalAlignment="Center">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- 日付表示用のテキストボックス -->
+        <TextBox Grid.Column="0"
+                 x:Name="valueTextBox"
+                 Text="{Binding ElementName=dateUpDown, Path=Value, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource dateToStringConverter}}"
+                 VerticalContentAlignment="Center"
+                 HorizontalContentAlignment="Right"
+                 Padding="0"
+                 FontSize="18"
+                 BorderBrush="#CCCCCC"
+                 BorderThickness="1"
+                 Margin="0,0,1,0"
+                 PreviewTextInput="ValueTextBox_PreviewTextInput"
+                 PreviewKeyDown="ValueTextBox_PreviewKeyDown"/>
+
+        <!-- 上下ボタンを配置する垂直スタックパネル -->
+        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+            <!-- 値を増やすボタン -->
+            <Button x:Name="upButton"
+                    Click="UpButton_Click"
+                    Height="15"
+                    Width="15"
+                    Padding="0"
+                    Background="#F0F0F0"
+                    BorderBrush="#CCCCCC"
+                    Focusable="False">
+                <iconPacks:PackIconModern Kind="ArrowUp" Width="10" Height="10" Foreground="Gray"/>
+            </Button>
+            <!-- 値を減らすボタン -->
+            <Button x:Name="downButton"
+                    Click="DownButton_Click"
+                    Height="15"
+                    Width="15"
+                    Padding="0"
+                    Background="#F0F0F0"
+                    BorderBrush="#CCCCCC"
+                    Focusable="False">
+                <iconPacks:PackIconModern Kind="ArrowDown" Width="10" Height="10" Foreground="Gray"/>
+            </Button>
+        </StackPanel>
+    </Grid>
+</UserControl>

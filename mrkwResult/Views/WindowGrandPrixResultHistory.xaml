@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
-        xmlns:local="clr-namespace:Views"
+        xmlns:local="clr-namespace:Views.UserControls"
         xmlns:viewmodels="clr-namespace:ViewModels"
         mc:Ignorable="d"
         FontSize="20"
@@ -74,9 +74,11 @@
 
                     <TextBlock Grid.Row="2" Grid.Column="0" Text="レース日:"/>
                     <StackPanel Grid.Row="2" Grid.Column="1" Orientation="Horizontal" Grid.ColumnSpan="2">
-                        <DatePicker SelectedDate="{Binding StartDate}"/>
+                        <local:DateUpDown Value="{Binding StartDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='{}{0:yyyy/MM/dd}'}"
+                                         Width="150"/>
                         <TextBlock Text="～"/>
-                        <DatePicker SelectedDate="{Binding EndDate}"/>
+                        <local:DateUpDown Value="{Binding EndDate, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay, StringFormat='{}{0:yyyy/MM/dd}'}"
+                                         Width="150"/>
                     </StackPanel>
                 </Grid>
 
