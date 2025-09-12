@@ -24,11 +24,14 @@ namespace Views
     public partial class WindowGrandPrixResultHistory : Window
     {
         VMGrandPrixResultHistory vm;
+        CommonInstance comIns;
+
         public WindowGrandPrixResultHistory(CommonInstance comIns)
         {
             InitializeComponent();
             vm = new VMGrandPrixResultHistory(comIns);
             this.DataContext = vm;
+            this.comIns = comIns;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -73,6 +76,27 @@ namespace Views
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "エラー", MessageBoxButton.OK);
+            }
+        }
+        private void DataGrid_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (sender is DataGrid dg && dg.SelectedItem != null)
+            {
+                // 選択された行のデータを取得
+                if (dg.SelectedItem is T_RACEJSSK selectedRaceJssk)
+                {
+                    // WindowGrandPrixインスタンスを作成し、データを渡す
+                    if(selectedRaceJssk.RACEJSSKNO == null)
+                    {
+                        MessageBox.Show(ConstItems.GetKeyError, "エラー", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                    else
+                    {
+                        var grandPrixWindow = new WindowGrandPrixResult(comIns, selectedRaceJssk);
+                        grandPrixWindow.Owner = this;
+                        grandPrixWindow.ShowDialog();
+                    }
+                }
             }
         }
     }

@@ -579,5 +579,49 @@ namespace mrkwResult.Common
             return list;
         }
 
+        /// <summary>
+        /// PKG_GRN_010_レース実績を修正
+        /// </summary>
+        /// <param name="connectionString">データベース接続文字列。</param>
+        /// <param name="packageName">呼び出すOracleパッケージ名。</param>
+        /// <param name="racejssk">実績テーブルクラス。</param>
+        /// <returns>登録が成功した場合はtrue、それ以外はfalse。</returns>
+        /// <exception cref="Exception">データベース操作失敗時にスローされます。</exception>
+        public async Task<bool> UpdateRaceJsskAsync(string connectionString, string packageName, T_RACEJSSK racejssk)
+        {
+            try
+            {
+                using (OracleConnection conn = new OracleConnection(connectionString))
+                {
+                    await conn.OpenAsync();
+
+                    using (OracleCommand cmd = new OracleCommand(packageName, conn))
+                    {
+                        cmd.CommandType = CommandType.StoredProcedure;
+
+                        cmd.Parameters.Add("P_RACEJSSKNO", OracleDbType.Varchar2, racejssk.RACEJSSKNO, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_RACE_KBN", OracleDbType.Varchar2, racejssk.RACE_KBN, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_RACE_DATE", OracleDbType.Varchar2, racejssk.RACE_DATE?.ToString("yyyy/MM/dd") ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_START_CD", OracleDbType.Varchar2, racejssk.START_CD, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_GOAL_CD", OracleDbType.Varchar2, racejssk.GOAL_CD, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_MIRROR_FLG", OracleDbType.Varchar2, string.IsNullOrEmpty(racejssk.MIRROR_FLG) ? "0" : racejssk.REVERSE_FLG, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_RANK", OracleDbType.Varchar2, racejssk.RANK?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_HEADCOUNT", OracleDbType.Varchar2, racejssk.HEADCOUNT?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_RATE_END", OracleDbType.Varchar2, racejssk.RATE_END?.ToString() ?? (object)DBNull.Value, ParameterDirection.Input);
+                        cmd.Parameters.Add("P_REMARK", OracleDbType.Varchar2, racejssk.REMARK, ParameterDirection.Input);
+                        cmd.Parameters.Add("CUR_ITEM", OracleDbType.RefCursor, ParameterDirection.InputOutput);
+
+                        await cmd.ExecuteNonQueryAsync();
+
+                        return true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("レース実績の登録に失敗しました。", ex);
+            }
+        }
+
     }
 }

@@ -96,8 +96,9 @@
         </GroupBox>
         <!-- 結果一覧エリア -->
         <GroupBox Grid.Row="1" Header="一覧" Margin="5">
-        <DataGrid ItemsSource="{Binding obcRaceJsskResultList}"
-                  Style="{StaticResource DataGridStyle}">
+            <DataGrid ItemsSource="{Binding obcRaceJsskResultList}"
+                      MouseDoubleClick="DataGrid_MouseDoubleClick"
+                      Style="{StaticResource DataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="レース日時" Binding="{Binding RACE_DATE, StringFormat='yyyy/MM/dd'}" Width="Auto">
                     <DataGridTextColumn.ElementStyle>

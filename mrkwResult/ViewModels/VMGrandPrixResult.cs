@@ -18,10 +18,12 @@ namespace ViewModels
 {
     public class VMGrandPrixResult : ViewModelBase
     {
+        // 新規登録用のコンストラクタ
         public VMGrandPrixResult(CommonInstance comIns)
         {
-            ComIns = comIns;
-            req = new RequestToDB();
+            this.req = new RequestToDB();
+            this.ComIns = comIns;
+            Mode = Common.OperationMode.Regist;
             JissekiInfo = new T_RACEJSSK();
             JissekiInfo.RACE_DATE = DateTime.Today;
             JissekiInfo.RACE_KBN = "GRN";
@@ -30,8 +32,18 @@ namespace ViewModels
             JissekiInfo.RATE_END = 8000;
         }
 
+        // データ修正用の新しいコンストラクタ
+        public VMGrandPrixResult(CommonInstance comIns, T_RACEJSSK selectedData)
+        {
+            this.req = new RequestToDB();
+            this.ComIns = comIns;
+            Mode = Common.OperationMode.Modify;
+            JissekiInfo = selectedData;
+        }
+
         #region プロパティ
 
+        public Common.OperationMode Mode { get; private set; }
         public RequestToDB req;
         public CommonInstance ComIns;
 
@@ -212,40 +224,64 @@ namespace ViewModels
             Dictionary<bool, string> dic = new Dictionary<bool, string>();
             try
             {
-                // 入力値のバリデーション
-                if (_SelectedStartCourse == null || _SelectedGoalCourse == null)
+                switch (Mode)
                 {
-                    msg = "出発地と目的地を選択してください。";
-                }
-                else
-                {
-                    if (_JissekiInfo == null || ResultInfo == null)
-                    {
-                        msg = "レース情報が選択されていません。コースの検索を行ってください。";
-                    }
-                    else
-                    {
-                        // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
+                    case Common.OperationMode.Regist:
+                        // 入力値のバリデーション
+                        if (_SelectedStartCourse == null || _SelectedGoalCourse == null)
+                        {
+                            msg = "出発地と目的地を選択してください。";
+                        }
+                        else
+                        {
+                            if (_JissekiInfo == null || ResultInfo == null)
+                            {
+                                msg = "レース情報が選択されていません。コースの検索を行ってください。";
+                            }
+                            else
+                            {
+                                // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
+                                _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
+                                _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
+                                _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
+                                _JissekiInfo.HEADCOUNT = _JissekiInfo.HEADCOUNT == 0 ? null : _JissekiInfo.HEADCOUNT;
+                                _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
+                                _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
+
+                                ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
+
+                                if (ret)
+                                {
+                                    msg = "実績の登録が完了しました。";
+                                }
+                                else
+                                {
+                                    msg = "実績の登録に失敗しました。";
+                                }
+                            }
+                        }
+                        break;
+                    case Common.OperationMode.Modify:
                         _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
                         _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
-                        _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
                         _JissekiInfo.HEADCOUNT = _JissekiInfo.HEADCOUNT == 0 ? null : _JissekiInfo.HEADCOUNT;
                         _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
                         _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
 
-                        ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
+                        ret = await req.UpdateRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_UpdateRaceJssk, _JissekiInfo);
 
                         if (ret)
                         {
-                            msg = "実績の登録が完了しました。";
+                            msg = "実績の修正が完了しました。";
                         }
                         else
                         {
-                            msg = "実績の登録に失敗しました。";
+                            msg = "実績の修正に失敗しました。";
                         }
-                    }
+                        break;
+                    default:
+                        break;
                 }
-
                 dic.Add(ret, msg);
                 return dic;
             }

@@ -12,6 +12,14 @@ namespace Models
 {
     public static class Common
     {
+        public enum OperationMode
+        {
+            Regist,
+            Modify,
+            View
+        }
+
+
         public static void OpenUrl(string url)
         {
             try

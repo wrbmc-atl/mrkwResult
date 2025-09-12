@@ -22,6 +22,7 @@ namespace Models
         public const string PKG_GetRacejsskInfo = "PKG_GRN_007.OPEN_CURSOR";
         public const string PKG_GetCode1List = "PKG_GRN_008.OPEN_CURSOR";
         public const string PKG_GetCode2List = "PKG_GRN_009.OPEN_CURSOR";
+        public const string PKG_UpdateRaceJssk = "PKG_GRN_010.OPEN_CURSOR";
 
 
         // メッセージ
@@ -30,6 +31,7 @@ namespace Models
         public const string InsertError = "登録に失敗しました。";
         public const string UpdateError = "更新に失敗しました。";
         public const string DeleteError = "削除に失敗しました。";
+        public const string GetKeyError = "キー情報の取得に失敗しました。";
         public const string CheckError = "入力内容を確認してください。";
         public const string InsertComp = "登録に成功しました。";
         public const string UpdateComp = "更新に成功しました。";

@@ -14,12 +14,23 @@ namespace Views
     public partial class WindowGrandPrixResult : Window
     {
         VMGrandPrixResult vm;
+
+        // 新規登録用のコンストラクタ
         public WindowGrandPrixResult(CommonInstance comIns)
         {
             InitializeComponent();
             vm = new VMGrandPrixResult(comIns);
             this.DataContext = vm;
         }
+
+        // 修正用のコンストラクタ
+        public WindowGrandPrixResult(CommonInstance comIns, T_RACEJSSK selectedData)
+        {
+            InitializeComponent();
+            vm = new VMGrandPrixResult(comIns, selectedData);
+            this.DataContext = vm;
+        }
+
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
         {
