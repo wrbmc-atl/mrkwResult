@@ -1,4 +1,7 @@
-﻿using System;
+﻿using DocumentFormat.OpenXml.Drawing;
+using Models;
+using mrkwResult.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +12,17 @@ namespace mrkwResult.Models.DBInfo
 {
     public class M_RACE : ViewModelBase
     {
+        public M_RACE()
+        {
+
+        }
+
+        public M_RACE(T_RACEJSSK raceJssk)
+        {
+            START_CD = raceJssk.START_CD;
+            GOAL_CD = raceJssk.GOAL_CD;
+        }
+
         private string _START_CD = string.Empty;
         public string START_CD
         {

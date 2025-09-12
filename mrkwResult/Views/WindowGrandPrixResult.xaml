@@ -130,8 +130,10 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Text="出発地:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.START_CD}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Visibility="Collapsed" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.START_NM}" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
                 <TextBlock Text="目的地:" Grid.Row="0" Grid.Column="3" VerticalAlignment="Center" Margin="0,5"/>
+                <TextBox Text="{Binding ResultInfo.GOAL_CD}" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Visibility="Collapsed" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.GOAL_NM}" Grid.Row="0" Grid.Column="4" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>
                 <TextBlock Text="レース種別:" Grid.Row="0" Grid.Column="6" VerticalAlignment="Center" Margin="0,5"/>
                 <TextBox Text="{Binding ResultInfo.STAGE_TYP_DISP}" Grid.Row="0" Grid.Column="7" VerticalAlignment="Center" IsEnabled="False" Focusable="False" Margin="0,5"/>

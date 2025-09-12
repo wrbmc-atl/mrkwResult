@@ -136,26 +136,33 @@ namespace ViewModels
 
         public void ShowNewDialog(ConstItems.WindowType winTyp)
         {
-            switch (winTyp)
+            try
             {
-                case ConstItems.WindowType.GrandPrix:
-                    WindowGrandPrixResult frm1 = new WindowGrandPrixResult(ComIns);
-                    bool? result1 = frm1.ShowDialog();
-                    break;
-                case ConstItems.WindowType.EditCourse:
-                    WindowEditCourseMaster frm2 = new WindowEditCourseMaster(ComIns);
-                    bool? result2 = frm2.ShowDialog();
-                    break;
-                case ConstItems.WindowType.EditRace:
-                    WindowEditRaceMaster frm3 = new WindowEditRaceMaster(ComIns);
-                    bool? result3 = frm3.ShowDialog();
-                    break;
-                case ConstItems.WindowType.GrandPrixView:
-                    WindowGrandPrixResultHistory frm4 = new WindowGrandPrixResultHistory(ComIns);
-                    bool? result4 = frm4.ShowDialog();
-                    break;
-                default:
-                    break;
+                switch (winTyp)
+                {
+                    case ConstItems.WindowType.GrandPrix:
+                        WindowGrandPrixResult frm1 = new WindowGrandPrixResult(ComIns);
+                        bool? result1 = frm1.ShowDialog();
+                        break;
+                    case ConstItems.WindowType.EditCourse:
+                        WindowEditCourseMaster frm2 = new WindowEditCourseMaster(ComIns);
+                        bool? result2 = frm2.ShowDialog();
+                        break;
+                    case ConstItems.WindowType.EditRace:
+                        WindowEditRaceMaster frm3 = new WindowEditRaceMaster(ComIns);
+                        bool? result3 = frm3.ShowDialog();
+                        break;
+                    case ConstItems.WindowType.GrandPrixView:
+                        WindowGrandPrixResultHistory frm4 = new WindowGrandPrixResultHistory(ComIns);
+                        bool? result4 = frm4.ShowDialog();
+                        break;
+                    default:
+                        break;
+                }
+            }
+            catch(Exception ex)
+            {
+                throw ex;
             }
         }
 

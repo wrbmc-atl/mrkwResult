@@ -1,14 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Data;
-using Oracle.ManagedDataAccess.Client;
 using mrkwResult.Common;
 using mrkwResult.Models.DBInfo;
 using Views;
@@ -39,6 +30,7 @@ namespace ViewModels
             this.ComIns = comIns;
             Mode = Common.OperationMode.Modify;
             JissekiInfo = selectedData;
+            this.ResultInfo = new M_RACE(selectedData);
         }
 
         #region プロパティ
@@ -94,7 +86,6 @@ namespace ViewModels
             set { _JissekiInfo = value; NotifyPropertyChanged(); }
         }
 
-        // --- 画像の存在有無をBindingするための新しいプロパティ ---
         private bool _isPic1Available;
         public bool IsPic1Available
         {
@@ -115,7 +106,6 @@ namespace ViewModels
             get { return _isPic3Available; }
             set { _isPic3Available = value; NotifyPropertyChanged(); }
         }
-        // -----------------------------------------------------
 
         private ObservableCollection<M_CODE> _obcRaceKbnList = new ObservableCollection<M_CODE>();
         public ObservableCollection<M_CODE> obcRaceKbnList
@@ -139,6 +129,13 @@ namespace ViewModels
             {
                 bool ret = false;
                 await SetInitialize();
+
+                if (Mode == Common.OperationMode.Modify)
+                {
+                    ResultInfo.START_NM = JissekiInfo.START_NM_DISP;
+                    ResultInfo.GOAL_NM = JissekiInfo.GOAL_NM_DISP;
+                }
+
                 ret = true;
                 return ret;
             }
@@ -198,9 +195,9 @@ namespace ViewModels
                     {
                         // 検索結果取得成功後、画像ファイルの存在を確認
                         string projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
-                        IsPic1Available = !string.IsNullOrEmpty(ResultInfo?.SHTC_PIC1) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo?.SHTC_PIC1));
-                        IsPic2Available = !string.IsNullOrEmpty(ResultInfo?.SHTC_PIC2) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo?.SHTC_PIC2));
-                        IsPic3Available = !string.IsNullOrEmpty(CourseInfo?.SHTC_PIC) && File.Exists(Path.Combine(projectDirectory, "Images", CourseInfo?.SHTC_PIC));
+                        IsPic1Available = !string.IsNullOrEmpty(ResultInfo.SHTC_PIC1) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo.SHTC_PIC1));
+                        IsPic2Available = !string.IsNullOrEmpty(ResultInfo.SHTC_PIC2) && File.Exists(Path.Combine(projectDirectory, "Images", ResultInfo.SHTC_PIC2));
+                        IsPic3Available = !string.IsNullOrEmpty(CourseInfo.SHTC_PIC) && File.Exists(Path.Combine(projectDirectory, "Images", CourseInfo.SHTC_PIC));
 
                         ret = true;
                     }
@@ -241,9 +238,9 @@ namespace ViewModels
                             else
                             {
                                 // バリデーションに成功した場合、JissekiInfoに選択されたステージ情報を設定
-                                _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
-                                _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
-                                _JissekiInfo.STAGE_TYP = ResultInfo?.STAGE_TYP;
+                                _JissekiInfo.START_CD = ResultInfo.START_CD;
+                                _JissekiInfo.GOAL_CD = ResultInfo.GOAL_CD;
+                                _JissekiInfo.STAGE_TYP = ResultInfo.STAGE_TYP;
                                 _JissekiInfo.HEADCOUNT = _JissekiInfo.HEADCOUNT == 0 ? null : _JissekiInfo.HEADCOUNT;
                                 _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
                                 _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
@@ -262,8 +259,8 @@ namespace ViewModels
                         }
                         break;
                     case Common.OperationMode.Modify:
-                        _JissekiInfo.START_CD = _SelectedStartCourse.COURSE_CD;
-                        _JissekiInfo.GOAL_CD = _SelectedGoalCourse.COURSE_CD;
+                        _JissekiInfo.START_CD = ResultInfo.START_CD;
+                        _JissekiInfo.GOAL_CD = ResultInfo.GOAL_CD;
                         _JissekiInfo.HEADCOUNT = _JissekiInfo.HEADCOUNT == 0 ? null : _JissekiInfo.HEADCOUNT;
                         _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
                         _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
