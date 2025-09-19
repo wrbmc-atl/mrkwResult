@@ -1,11 +1,11 @@
 ﻿using Models;
-using mrkwResult.Common;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System;
 using mrkwResult.Models.DBInfo;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Windows.Interop;
+using mrkwResult.Models;
 
 namespace ViewModels
 {
@@ -14,9 +14,8 @@ namespace ViewModels
     /// </summary>
     public class VMGrandPrixResultHistory : ViewModelBase
     {
-        public VMGrandPrixResultHistory(CommonInstance comIns)
+        public VMGrandPrixResultHistory()
         {
-            ComIns = comIns;
             req = new RequestToDB();
             codeList = new M_CODE();
             obcRaceKbnList = new ObservableCollection<M_CODE>();
@@ -32,7 +31,6 @@ namespace ViewModels
 
         public RequestToDB req;
         public M_CODE codeList;
-        public CommonInstance ComIns;
 
         private ObservableCollection<M_CODE> _obcRaceKbnList = new ObservableCollection<M_CODE>();
         public ObservableCollection<M_CODE> obcRaceKbnList
@@ -150,11 +148,11 @@ namespace ViewModels
             {
                 bool ret = false;
 
-                obcRaceKbnList = await req.GetCodeListAsync(ComIns.ConnStr, ConstItems.PKG_GetCode1List, "RACE_KBN", true);
-                obcStageTypeList = await req.GetCodeListAsync(ComIns.ConnStr, ConstItems.PKG_GetCode1List, "STAGE_TYP", true);
+                obcRaceKbnList = await req.GetCodeListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCode1List, "RACE_KBN", true);
+                obcStageTypeList = await req.GetCodeListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCode1List, "STAGE_TYP", true);
 
-                obcStartCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, true);
-                obcGoalCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, true);
+                obcStartCourseList = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, true);
+                obcGoalCourseList = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, true);
 
                 ret = true;
                 return ret;
@@ -181,7 +179,7 @@ namespace ViewModels
                 {
                     // PKG_GRN_007を呼び出す
                     obcRaceJsskResultList.Clear();
-                    obcRaceJsskResultList = await req.GetRaceJsskListAsync(ComIns.ConnStr, ConstItems.PKG_GetRacejsskInfo, SelectedRaceKbn?.CODE2, SelectedStartCourse?.COURSE_CD, SelectedGoalCourse?.COURSE_CD, StartDate?.ToString("yyyy/MM/dd"), EndDate?.ToString("yyyy/MM/dd"), SelectedStageType?.CODE2);
+                    obcRaceJsskResultList = await req.GetRaceJsskListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetRacejsskInfo, SelectedRaceKbn?.CODE2, SelectedStartCourse?.COURSE_CD, SelectedGoalCourse?.COURSE_CD, StartDate?.ToString("yyyy/MM/dd"), EndDate?.ToString("yyyy/MM/dd"), SelectedStageType?.CODE2);
 
                     if (obcRaceJsskResultList == null)
                     {

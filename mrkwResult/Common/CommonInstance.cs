@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class CommonInstance
+    public static class CommonInstance
     {
 
-        private string _ConnStr = string.Empty;
-        public string ConnStr
+        private static string _ConnStr = string.Empty;
+        public static string ConnStr
         {
             get { return _ConnStr; }
             set { _ConnStr = value; }

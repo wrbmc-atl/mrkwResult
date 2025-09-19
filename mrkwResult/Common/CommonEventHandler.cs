@@ -1,4 +1,5 @@
-﻿using System;
+﻿using mrkwResult.Common;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;
 using System.Linq;

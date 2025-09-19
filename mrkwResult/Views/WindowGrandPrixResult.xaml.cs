@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Input;
 using mrkwResult.Models.DBInfo;
 using System.Windows.Controls;
+using mrkwResult.Models;
 
 namespace Views
 {
@@ -16,18 +17,18 @@ namespace Views
         VMGrandPrixResult vm;
 
         // 新規登録用のコンストラクタ
-        public WindowGrandPrixResult(CommonInstance comIns)
+        public WindowGrandPrixResult()
         {
             InitializeComponent();
-            vm = new VMGrandPrixResult(comIns);
+            vm = new VMGrandPrixResult();
             this.DataContext = vm;
         }
 
         // 修正用のコンストラクタ
-        public WindowGrandPrixResult(CommonInstance comIns, T_RACEJSSK selectedData)
+        public WindowGrandPrixResult(T_RACEJSSK selectedData)
         {
             InitializeComponent();
-            vm = new VMGrandPrixResult(comIns, selectedData);
+            vm = new VMGrandPrixResult(selectedData);
             this.DataContext = vm;
         }
 

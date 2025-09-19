@@ -4,26 +4,24 @@ using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Wordprocessing;
 using System.Windows.Interop;
 using Models;
-using mrkwResult.Common;
 using mrkwResult.Models.DBInfo;
 using Oracle.ManagedDataAccess.Client;
 using ViewModels;
 using Views;
+using mrkwResult.Models;
 
 namespace Services
 {
     public class VMEditCourseMaster : ViewModelBase
     {
-        public VMEditCourseMaster(CommonInstance comIns)
+        public VMEditCourseMaster()
         {
-            ComIns = comIns;
             req = new RequestToDB();
         }
 
         #region プロパティ
 
         public RequestToDB req;
-        public CommonInstance ComIns;
 
         private ObservableCollection<M_COURSE> _obcCourse = new ObservableCollection<M_COURSE>();
         public ObservableCollection<M_COURSE> obcCourse
@@ -67,7 +65,7 @@ namespace Services
             try
             {
                 bool ret = false;
-                obcCourse = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcCourse = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, false);
                 ret = true;
                 return ret;
             }
@@ -90,7 +88,7 @@ namespace Services
                 }
                 else
                 {
-                    CourseInfo = await req.GetCourseInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseInfo, _SelectedCourse.COURSE_CD);
+                    CourseInfo = await req.GetCourseInfoAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseInfo, _SelectedCourse.COURSE_CD);
 
                     if (CourseInfo == null)
                     {
@@ -132,7 +130,7 @@ namespace Services
                     }
                     else
                     {
-                        ret = await req.UpdateCourseMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateCourseMaster, _CourseInfo);
+                        ret = await req.UpdateCourseMasterAsync(CommonInstance.ConnStr, ConstItems.PKG_UpdateCourseMaster, _CourseInfo);
                         if (ret)
                         {
                             msg = "コースマスタの更新が完了しました。";

@@ -1,4 +1,5 @@
 ﻿using Models;
+using mrkwResult.Models;
 using mrkwResult.Models.DBInfo;
 using System;
 using System.Collections.Generic;
@@ -24,14 +25,12 @@ namespace Views
     public partial class WindowGrandPrixResultHistory : Window
     {
         VMGrandPrixResultHistory vm;
-        CommonInstance comIns;
 
-        public WindowGrandPrixResultHistory(CommonInstance comIns)
+        public WindowGrandPrixResultHistory()
         {
             InitializeComponent();
-            vm = new VMGrandPrixResultHistory(comIns);
+            vm = new VMGrandPrixResultHistory();
             this.DataContext = vm;
-            this.comIns = comIns;
         }
 
         private async void Window_Loaded(object sender, RoutedEventArgs e)
@@ -92,7 +91,7 @@ namespace Views
                     }
                     else
                     {
-                        var grandPrixWindow = new WindowGrandPrixResult(comIns, selectedRaceJssk);
+                        var grandPrixWindow = new WindowGrandPrixResult(selectedRaceJssk);
                         grandPrixWindow.Owner = this;
                         grandPrixWindow.ShowDialog();
                     }

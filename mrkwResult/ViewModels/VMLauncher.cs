@@ -17,6 +17,7 @@ using System.Reflection;
 using System.Xml.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using mrkwResult.Models;
 
 namespace ViewModels
 {
@@ -24,10 +25,8 @@ namespace ViewModels
     {
         public VMLauncher()
         {
-            ComIns = new CommonInstance();
-        }
 
-        public CommonInstance ComIns { get; set; }
+        }
 
         private string _version;
         public string version
@@ -95,10 +94,10 @@ namespace ViewModels
                     switch (direction.ToLower()) // 小文字に変換して比較
                     {
                         case "dev":
-                            ComIns.ConnStr = ConstItems.ConnStrDev;
+                            CommonInstance.ConnStr = ConstItems.ConnStrDev;
                             break;
                         case "prod":
-                            ComIns.ConnStr = ConstItems.ConnStrProd;
+                            CommonInstance.ConnStr = ConstItems.ConnStrProd;
                             break;
                         default:
                             break;
@@ -141,19 +140,19 @@ namespace ViewModels
                 switch (winTyp)
                 {
                     case ConstItems.WindowType.GrandPrix:
-                        WindowGrandPrixResult frm1 = new WindowGrandPrixResult(ComIns);
+                        WindowGrandPrixResult frm1 = new WindowGrandPrixResult();
                         bool? result1 = frm1.ShowDialog();
                         break;
                     case ConstItems.WindowType.EditCourse:
-                        WindowEditCourseMaster frm2 = new WindowEditCourseMaster(ComIns);
+                        WindowEditCourseMaster frm2 = new WindowEditCourseMaster();
                         bool? result2 = frm2.ShowDialog();
                         break;
                     case ConstItems.WindowType.EditRace:
-                        WindowEditRaceMaster frm3 = new WindowEditRaceMaster(ComIns);
+                        WindowEditRaceMaster frm3 = new WindowEditRaceMaster();
                         bool? result3 = frm3.ShowDialog();
                         break;
                     case ConstItems.WindowType.GrandPrixView:
-                        WindowGrandPrixResultHistory frm4 = new WindowGrandPrixResultHistory(ComIns);
+                        WindowGrandPrixResultHistory frm4 = new WindowGrandPrixResultHistory();
                         bool? result4 = frm4.ShowDialog();
                         break;
                     default:

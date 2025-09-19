@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using Models;
 using Services;
 using mrkwResult.Models.DBInfo;
+using mrkwResult.Models;
 
 namespace Views
 {
@@ -14,10 +15,10 @@ namespace Views
     {
         private VMEditRaceMaster vm;
 
-        public WindowEditRaceMaster(CommonInstance comIns)
+        public WindowEditRaceMaster()
         {
             InitializeComponent();
-            vm = new VMEditRaceMaster(comIns);
+            vm = new VMEditRaceMaster();
             this.DataContext = vm;
         }
 

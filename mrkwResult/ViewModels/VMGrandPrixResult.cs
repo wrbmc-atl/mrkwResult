@@ -1,19 +1,18 @@
 ﻿using System.Collections.ObjectModel;
 using System.IO;
-using mrkwResult.Common;
 using mrkwResult.Models.DBInfo;
 using Views;
 using Models;
+using mrkwResult.Models;
 
 namespace ViewModels
 {
     public class VMGrandPrixResult : ViewModelBase
     {
         // 新規登録用のコンストラクタ
-        public VMGrandPrixResult(CommonInstance comIns)
+        public VMGrandPrixResult()
         {
             this.req = new RequestToDB();
-            this.ComIns = comIns;
             Mode = Common.OperationMode.Regist;
             JissekiInfo = new T_RACEJSSK();
             JissekiInfo.RACE_DATE = DateTime.Today;
@@ -24,10 +23,9 @@ namespace ViewModels
         }
 
         // データ修正用の新しいコンストラクタ
-        public VMGrandPrixResult(CommonInstance comIns, T_RACEJSSK selectedData)
+        public VMGrandPrixResult(T_RACEJSSK selectedData)
         {
             this.req = new RequestToDB();
-            this.ComIns = comIns;
             Mode = Common.OperationMode.Modify;
             JissekiInfo = selectedData;
             this.ResultInfo = new M_RACE(selectedData);
@@ -37,7 +35,6 @@ namespace ViewModels
 
         public Common.OperationMode Mode { get; private set; }
         public RequestToDB req;
-        public CommonInstance ComIns;
 
         private ObservableCollection<M_COURSE> _obcStartCourseList = new ObservableCollection<M_COURSE>();
         public ObservableCollection<M_COURSE> obcStartCourseList
@@ -150,9 +147,9 @@ namespace ViewModels
             try
             {
                 bool ret = false;
-                obcStartCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
-                obcGoalCourseList = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
-                obcRaceKbnList = await req.GetCodeListAsync(ComIns.ConnStr, ConstItems.PKG_GetCode1List, "RACE_KBN", false);
+                obcStartCourseList = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcGoalCourseList = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcRaceKbnList = await req.GetCodeListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCode1List, "RACE_KBN", false);
                 ret = true;
                 return ret;
             }
@@ -184,8 +181,8 @@ namespace ViewModels
                 }
                 else
                 {
-                    ResultInfo = await req.GetRaceInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetRaceInfo, _SelectedStartCourse.COURSE_CD, _SelectedGoalCourse.COURSE_CD);
-                    CourseInfo = await req.GetCourseInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseInfo, _SelectedGoalCourse.COURSE_CD);
+                    ResultInfo = await req.GetRaceInfoAsync(CommonInstance.ConnStr, ConstItems.PKG_GetRaceInfo, _SelectedStartCourse.COURSE_CD, _SelectedGoalCourse.COURSE_CD);
+                    CourseInfo = await req.GetCourseInfoAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseInfo, _SelectedGoalCourse.COURSE_CD);
 
                     if (ResultInfo == null)
                     {
@@ -245,7 +242,7 @@ namespace ViewModels
                                 _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
                                 _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
 
-                                ret = await req.InsertRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
+                                ret = await req.InsertRaceJsskAsync(CommonInstance.ConnStr, ConstItems.PKG_InsertRaceJssk, _JissekiInfo);
 
                                 if (ret)
                                 {
@@ -265,7 +262,7 @@ namespace ViewModels
                         _JissekiInfo.RANK = _JissekiInfo.RANK == 0 ? null : _JissekiInfo.RANK;
                         _JissekiInfo.RATE_END = _JissekiInfo.RATE_END == 0 ? null : _JissekiInfo.RATE_END;
 
-                        ret = await req.UpdateRaceJsskAsync(ComIns.ConnStr, ConstItems.PKG_UpdateRaceJssk, _JissekiInfo);
+                        ret = await req.UpdateRaceJsskAsync(CommonInstance.ConnStr, ConstItems.PKG_UpdateRaceJssk, _JissekiInfo);
 
                         if (ret)
                         {

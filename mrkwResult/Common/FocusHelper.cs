@@ -1,6 +1,6 @@
 ﻿using System.Windows;
 
-namespace Models
+namespace mrkwResult.Common
 {
     public static class FocusHelper
     {

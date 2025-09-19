@@ -1,6 +1,6 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using Models;
-using mrkwResult.Common;
+using mrkwResult.Models;
 using mrkwResult.Models.DBInfo;
 using System.Collections.ObjectModel;
 using System.Windows.Interop;
@@ -10,16 +10,14 @@ namespace Services
 {
     public class VMEditRaceMaster : ViewModelBase
     {
-        public VMEditRaceMaster(CommonInstance comIns)
+        public VMEditRaceMaster()
         {
-            ComIns = comIns;
             req = new RequestToDB();
         }
 
         #region プロパティ
 
         public RequestToDB req;
-        public CommonInstance ComIns;
 
         private ObservableCollection<M_COURSE> _obcStartCourse = new ObservableCollection<M_COURSE>();
         public ObservableCollection<M_COURSE> obcStartCourse
@@ -76,8 +74,8 @@ namespace Services
             try
             {
                 bool ret = false;
-                obcStartCourse = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
-                obcGoalCourse = await req.GetCourseListAsync(ComIns.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcStartCourse = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, false);
+                obcGoalCourse = await req.GetCourseListAsync(CommonInstance.ConnStr, ConstItems.PKG_GetCourseList, false);
                 ret = true;
                 return ret;
             }
@@ -100,7 +98,7 @@ namespace Services
                 }
                 else
                 {
-                    RaceInfo = await req.GetRaceInfoAsync(ComIns.ConnStr, ConstItems.PKG_GetRaceInfo, _SelectedStartCourse.COURSE_CD, _SelectedGoalCourse.COURSE_CD);
+                    RaceInfo = await req.GetRaceInfoAsync(CommonInstance.ConnStr, ConstItems.PKG_GetRaceInfo, _SelectedStartCourse.COURSE_CD, _SelectedGoalCourse.COURSE_CD);
 
                     if (RaceInfo == null)
                     {
@@ -143,7 +141,7 @@ namespace Services
                     }
                     else
                     {
-                        ret = await req.UpdateRaceMasterAsync(ComIns.ConnStr, ConstItems.PKG_UpdateRaceMaster, _RaceInfo);
+                        ret = await req.UpdateRaceMasterAsync(CommonInstance.ConnStr, ConstItems.PKG_UpdateRaceMaster, _RaceInfo);
 
                         if (ret)
                         {

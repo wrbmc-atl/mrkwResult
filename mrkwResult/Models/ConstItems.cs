@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace mrkwResult.Models
 {
     public static class ConstItems
     {
         // 接続先
         public const string ConnStrDev = "User ID=mrkw_dev;Password=mrkw_dev;Data Source=localhost:1521/XEPDB1;";
         public const string ConnStrProd = "User ID=mrkw_prod;Password=mrkw_prod;Data Source=localhost:1521/XEPDB1;";
-        
+
         // パッケージ名
         public const string PKG_GetCourseList = "PKG_GRN_001.OPEN_CURSOR";
         public const string PKG_GetRaceInfo = "PKG_GRN_002.OPEN_CURSOR";

@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using Models;
 using Services;
 using mrkwResult.Models.DBInfo;
+using mrkwResult.Models;
 
 namespace Views
 {
@@ -17,10 +18,10 @@ namespace Views
     {
         private VMEditCourseMaster vm;
 
-        public WindowEditCourseMaster(CommonInstance comIns)
+        public WindowEditCourseMaster()
         {
             InitializeComponent();
-            vm = new VMEditCourseMaster(comIns);
+            vm = new VMEditCourseMaster();
             this.DataContext = vm;
         }
 

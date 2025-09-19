@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows;
 using ViewModels;
-using Models;
+using mrkwResult.Models;
 
 namespace Views
 {
